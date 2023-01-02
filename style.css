@@ -1,68 +1,78 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-*{
+* {
     margin: 0px;
     font-family: Poppins;
 }
+
 /* CONFIGURAÇÕES DE TEXTO */
-.text-sx{
+.text-sx {
     font-size: 0.75rem;
     /* 12px */
 }
-.text-sm{
+
+.text-sm {
     font-size: 0.875rem;
     /* 14px */
 }
-.text-base{
+
+.text-base {
     font-size: 1rem;
     /* 16px */
 
 }
-.text-lg{
+
+.text-lg {
     font-size: 1.125rem;
     /* 18px */
 }
-.text-xl{
+
+.text-xl {
     font-size: 1.25rem;
     /* 20px */
 }
-.text-2xl{
+
+.text-2xl {
     font-size: 1.5rem;
     /* 24px */
 }
-.text-3xl{
+
+.text-3xl {
     font-size: 2.25rem;
     /* 36px */
 }
+
 /* AVALIAÇÃO */
-.avaliacao-card{
+.avaliacao-card {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.estrela{
+
+.estrela {
     color: #FFD600;
     margin: 5px;
 }
 
 /* CABEÇALHO */
-#header{
+#header {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("https://picsum.photos/1440/810");
     background-size: cover;
-    padding: 1rem 6rem;
+    padding: 1rem 5rem;
     color: #FFFFFF;
 }
 
 /* NAVBAR */
-#navbar{
-    display:flex;
+#navbar {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
 }
-#pesquisa{
-    width:20em;
+
+#pesquisa {
+    width: 20em;
     padding: 2px;
     display: flex;
     flex-direction: row;
@@ -72,59 +82,85 @@
     filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));
     border-radius: 4px;
 
-    
+
 }
-.busca{
+
+.busca {
     color: #FFFFFF;
     font-size: 1rem;
-    
+
 }
-input{
+
+input {
     background-color: transparent;
     color: #FFFFFF;
     border: 0px;
     height: 24px;
     font-size: 1rem;
 }
+
 input::placeholder {
     color: #eaeaea;
-  }
-input:focus{
+}
+
+input:focus {
     box-shadow: 0 0 0 0;
     border: 0 none;
     outline: 0;
 }
+
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
-  display: none;
+    display: none;
 }
+
 /* FILME DESTAQUE */
-#filme-destaque{
+#filme-destaque {
     max-width: 40em;
     margin: 4em 0em;
 }
 
 /* BODY */
-#body{
-    margin: 0rem 6rem;
-}
-#card{
-    max-width: 200px;
-}
-.titulo-cards{
-    margin: 2rem 0rem;
-    font-size: 2.25rem;
-}
-.genero-card{
-    color: #8C8C8C;
-    font-weight: 600;
-    font-size: 0.75rem;
-}
-#body .avaliacao-card{
-    color: #8C8C8C;
-    font-weight: 600;
-    font-size: 0.75rem;
+#body {
+    margin: 0rem 5rem;
+
 }
 
+.cards {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+
+}
+
+.card {
+    max-width: 200px;
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.card img {
+    width: 100%;
+    width: 100%;
+    border-radius: 4px;
+
+}
+
+.titulo-cards {
+    font-size: 2rem;
+    margin: 2rem 0rem;
+}
+
+.avaliacao-filme{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.genero-filme, .num-card{
+    font-size: 0.75rem;
+    color: #8C8C8C;
+}
