@@ -128,7 +128,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 }
 
-.cards {
+.cards-filme, .cards-serie {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 16px;
