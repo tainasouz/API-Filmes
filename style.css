@@ -152,6 +152,10 @@ input[type="search"]::-webkit-search-results-decoration {
 .titulo-cards {
     font-size: 2rem;
     margin: 2rem 0rem;
+
+}
+.tittulo-filme{
+    line-height: 103%;
 }
 
 .avaliacao-filme{
