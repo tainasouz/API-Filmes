@@ -4,6 +4,7 @@ let urlProgramTV = "https://api.themoviedb.org/3/tv/popular?api_key=f1b9e75f6dc0
 
 window.onload = () => {
     carregarFilmes()
+    carregarProgramTV()
 }
 
 
@@ -11,6 +12,7 @@ function carregarFilmes() {
     let movies = []
     let htmlFilmes = ``
     let filme
+    let cont = 0
 
     async function fetchData() {
         const response = await fetch(urlFilme);
@@ -18,7 +20,7 @@ function carregarFilmes() {
         movies = movies.concat(data.results)
 
 
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; cont < 12 && i < movies.length; i++) {
             let generofilme = []
 
             filme = movies[i]
@@ -34,22 +36,30 @@ function carregarFilmes() {
 
             filme.genre_ids = generofilme.join(", ")
 
+            console.log(filme.vote_average)
 
-            htmlFilmes += `
+            if (filme.vote_average > 6.0) {
+                htmlFilmes += `
         <div class="card">
                 <div class="img-card">
-                    <img src="https://image.tmdb.org/t/p/w200/${filme.poster_path}" alt="Filme ${filme.title}">
+                    <img src="https://image.tmdb.org/t/p/w500/${filme.poster_path}" alt="${filme.title}">
                 </div>
                 <div class="info-card">
                     <h3 class="titulo-card">${filme.title}</h3>
-                    <h4 class="genero-filme">${filme.genre_ids}</h4>
-                    <div class="avaliacao-filme">
+                    <h4 class="genero-card">${filme.genre_ids}</h4>
+                    <div class="avaliacao-card">
                         <i class="fi fi-rr-star estrela"></i>
                         <h4 class=num-card>${filme.vote_average}</h4>
                     </div>
                 </div>
             </div>`
+
+            cont++
+            }
+
         }
+
+
 
         document.querySelector(".cards-filme").innerHTML = htmlFilmes
 
@@ -60,93 +70,66 @@ function carregarFilmes() {
     });
 }
 
-
-
-
-function carregarDados(url) {
-
-    let allData = []
+function carregarProgramTV() {
+    let programs = []
+    let htmlPrograms = ``
+    let program
+    let cont = 0
 
     async function fetchData() {
-        for (let i = 1; i <= 5; i++) {
-            const response = await fetch(url + i);
-            const data = await response.json();
-            allData = allData.concat(data.results)
+        const response = await fetch(urlProgramTV);
+        const data = await response.json();
+        programs = programs.concat(data.results)
+
+
+        for (let i = 0; cont < 12 && i < programs.length; i++) {
+
+            let generoProgram = []
+
+            program = programs[i]
+            const response = await fetch(`
+            https://api.themoviedb.org/3/tv/${program.id}?api_key=f1b9e75f6dc0efa5b1181f25004a24b4&language=pt-BR`);
+            const dataProgram = await response.json();
+            let objectGeneros = dataProgram.genres
+
+            for (let i = 0; i < objectGeneros.length && i < 3; i++) {
+
+                generoProgram.push(objectGeneros[i]["name"])
+
+            }
+
+            program.genre_ids = generoProgram.join(", ")
+
+            console.log(programs)
+
+            if (program.vote_average > 6.0) {
+                htmlPrograms += `
+                    <div class="card">
+                    <div class="img-card">
+                        <img src="https://image.tmdb.org/t/p/w500/${program.poster_path}" alt="${program.title}">
+                    </div>
+                    <div class="info-card">
+                        <h3 class="titulo-card">${program.name}</h3>
+                        <h4 class="genero-card">${program.genre_ids}</h4>
+                        <div class="avaliacao-card">
+                            <i class="fi fi-rr-star estrela"></i>
+                            <h4 class=num-card>${program.vote_average}</h4>
+                        </div>
+                    </div>
+                </div>`
+
+                cont++
+            }
+
         }
-        carregarFilme_ProgramTV(allData)
+
+        document.querySelector(".cards-program").innerHTML = htmlPrograms
+
     }
 
     fetchData().then(data => {
         data;
     });
-
-
 }
 
 
-function carregarFilme_ProgramTV(dados) {
-
-    let contFilme = 0
-    let contSerie = 0
-
-    let htmlFilmes = ``
-    let htmlSeries = ``
-
-    console.log(dados)
-
-    for (let i = 0; contFilme < 12 && contSerie < 12; i++) {
-
-        console.log(dados[i].hasOwnProperty("title"))
-
-        if (dados[i].hasOwnProperty("title")) {
-            console.log(dados[i].media_type)
-            tipo = dados[i].media_type
-
-
-            if (tipo = "movie" && contFilme < 12) {
-                let filme = dados[i]
-
-                htmlFilmes += `
-        <div class="card">
-                <div class="img-card">
-                    <img src="https://image.tmdb.org/t/p/w200/${filme.poster_path}" alt="Filme ${filme.title}">
-                </div>
-                <div class="info-card">
-                    <h3 class="titulo-card">${filme.title}</h3>
-                    <h4 class="genero-filme">Gênero Filme</h4>
-                    <div class="avaliacao-filme">
-                        <i class="fi fi-rr-star estrela"></i>
-                        <h4 class=num-card>${filme.vote_average}</h4>
-                    </div>
-                </div>
-            </div>`
-
-                contFilme++
-            }
-            else if (tipo = "tv" && contSerie < 12) {
-
-                let serie = dados[i]
-
-                htmlSeries += `
-        <div class="card">
-                <div class="img-card">
-                    <img src="https://image.tmdb.org/t/p/w200/${serie.poster_path}" alt="Serie ${serie.title}">
-                </div>
-                <div class="info-card">
-                    <h3 class="titulo-card">${serie.title}</h3>
-                    <h4 class="genero-serie">Gênero Serie</h4>
-                    <div class="avaliacao-serie">
-                        <i class="fi fi-rr-star estrela"></i>
-                        <h4 class=num-card>${serie.vote_average}</h4>
-                    </div>
-                </div>
-            </div>`
-
-                contSerie++
-            }
-        }
-    }
-
-    document.querySelector(".cards-filme").innerHTML = htmlFilmes
-    document.querySelector(".cards-serie").innerHTML = htmlSeries
-}
