@@ -144,8 +144,11 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .card img {
+    display: inline-block;
     width: 100%;
-    width: 100%;
+    min-height: 299px;
+    height: 100%;
+    object-fit: cover;
     border-radius: 4px;
 
 }

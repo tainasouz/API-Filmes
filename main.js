@@ -100,9 +100,7 @@ function carregarProgramTV() {
 
             program.genre_ids = generoProgram.join(", ")
 
-            console.log(programs)
-
-            if (program.vote_average > 6.0) {
+            if (program.vote_average > 0) {
                 htmlPrograms += `
                     <div class="card">
                     <div class="img-card">
@@ -119,6 +117,7 @@ function carregarProgramTV() {
                 </div>`
 
                 cont++
+
             }
 
         }
