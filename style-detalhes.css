@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0px;
+    font-family: Poppins;
+
+}
+
+/* AVALIAÇÃO */
+.classificacao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 0.75rem;
+}
+
+.estrela {
+    color: #FFD600;
+    margin: 5px;
+}
+
+
+/* CABEÇALHO */
+.header {
+
+    padding: 1rem 5rem;
+    color: #FFFFFF;
+    min-height: 30em;
+    max-height: 1900;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.barra-pesquisa {
+    width: 20em;
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #FFFFFF;
+    filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));
+    border-radius: 4px;
+
+
+}
+
+/* .busca {
+    color: #FFFFFF;
+    font-size: 1rem;
+
+} */
+
+input {
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 0px;
+    height: 24px;
+    font-size: 1rem;
+}
+
+input::placeholder {
+    color: #eaeaea;
+}
+
+input:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+
+/* Detalhes do Filme */
+.infos {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.detalhes {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5em;
+
+
+    margin: 4em 0em;
+
+
+
+}
+
+.cartaz {
+    max-width: 300px;
+
+}
+
+.cartaz img {
+    width: 100%;
+    min-height: 299px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.titulo {
+    font-size: 36px;
+    font-weight: 800;
+}
+
+.data-genero {
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+
+    margin-right: 3em;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.classificao-indicativa {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #DFDFDF;
+    border-radius: 5px;
+    padding: 0px 6px;
+
+    font-size: 12px;
+    font-weight: 500
+}
+
+.sinopse {
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    flex-wrap: wrap;
+
+
+}
+.body{
+    margin: 2em 5em;
+}
+
+/* BODY - CARDS ATORES */
+.titulo-elenco{
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.cards-elenco{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin: 2em 0em;
+}
+
+.cards-elenco::-webkit-scrollbar{
+    height: 6px;
+
+}
+.cards-elenco::-webkit-scrollbar-thumb{
+    background-color: #d1d1d1;
+    border-radius: 12px;
+}
+.card img {
+    max-width: 175px;
+    border-radius: 12px;
+}
+
+.nome-ator {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.nome-personagem {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #8C8C8C;
+}
