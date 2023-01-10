@@ -1,7 +1,7 @@
-let urlFilme = "https://api.themoviedb.org/3/movie/popular?api_key=f1b9e75f6dc0efa5b1181f25004a24b4&language=pt-BR&page="
-let urlProgramTV = "https://api.themoviedb.org/3/tv/popular?api_key=f1b9e75f6dc0efa5b1181f25004a24b4&language=pt-BR&page="
+let urlFilme = "https://api.themoviedb.org/3/movie/popular?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&page="
+let urlProgramTV = "https://api.themoviedb.org/3/tv/popular?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&page="
 
-let urlDestaque = "https://api.themoviedb.org/3/discover/movie?api_key=f1b9e75f6dc0efa5b1181f25004a24b4&language=pt-BR&region=BR&sort_by=popularity.desc&page=1&year=2023&vote_average.lte=8&with_watch_monetization_types=flatrate"
+let urlDestaque = "https://api.themoviedb.org/3/discover/movie?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&region=BR&sort_by=popularity.desc&page=1&year=2023&vote_average.lte=8&with_watch_monetization_types=flatrate"
 
 
 window.onload = () => {
@@ -27,7 +27,7 @@ function carregarFilmes() {
             let generofilme = []
 
             filme = movies[i]
-            const response = await fetch(`https://api.themoviedb.org/3/movie/${filme.id}?api_key=f1b9e75f6dc0efa5b1181f25004a24b4&language=pt-BR`);
+            const response = await fetch(`https://api.themoviedb.org/3/movie/${filme.id}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`);
             const dataFilme = await response.json();
             let objectGeneros = dataFilme.genres
 
@@ -90,7 +90,7 @@ function carregarProgramTV() {
 
             program = programs[i]
             const response = await fetch(`
-            https://api.themoviedb.org/3/tv/${program.id}?api_key=f1b9e75f6dc0efa5b1181f25004a24b4&language=pt-BR`);
+            https://api.themoviedb.org/3/tv/${program.id}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`);
             const dataProgram = await response.json();
             let objectGeneros = dataProgram.genres
 
