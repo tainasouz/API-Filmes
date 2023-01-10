@@ -143,7 +143,7 @@ function carregarDestaque() {
         let filmeDestaque = data.results[0]
 
         htmlDestaque = `
-        <h2 class="text-2xl"> ${filmeDestaque.title}</h2>
+        <a href="/detalhes.html?id=${filmeDestaque.id}">${filmeDestaque.title}</a>
         <p class="descricao"> ${filmeDestaque.overview}</p>
         <div class="avaliacao-card">
             <i class="fi fi-rr-star estrela"></i>

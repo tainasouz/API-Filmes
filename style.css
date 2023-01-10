@@ -58,13 +58,10 @@
 
 /* CABEÇALHO */
 #header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    background-position: center center;
+
     padding: 1rem 5rem;
     color: #FFFFFF; 
-    min-height: 35em;
+    min-height: 30em;
 }
 
 /* NAVBAR */
