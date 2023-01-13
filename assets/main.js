@@ -44,10 +44,13 @@ function carregarFilmes() {
                 htmlFilmes += `
         <div class="card">
                 <div class="img-card">
-                    <img src="https://image.tmdb.org/t/p/original/${filme.poster_path}" alt="${filme.title}">
+                    <a href="/detalhes.html?id=${filme.id}&type=movie" class="link-img">
+                        <img src="https://image.tmdb.org/t/p/w500/${filme.poster_path}" alt="${filme.title}">
+                    </a>
+                
                 </div>
                 <div class="info-card">
-                    <h3 class="titulo-card">${filme.title}</h3>
+                    <a href="/detalhes.html?id=${filme.id}&type=movie" class="titulo-card">${filme.title}</a>
                     <h4 class="genero-card">${filme.genre_ids}</h4>
                     <div class="avaliacao-card">
                         <i class="fi fi-rr-star estrela"></i>
@@ -106,10 +109,13 @@ function carregarProgramTV() {
                 htmlPrograms += `
                     <div class="card">
                     <div class="img-card">
-                        <img src="https://image.tmdb.org/t/p/original/${program.poster_path}" alt="${program.title}">
+                    <a href="/detalhes.html?id=${program.id}&type=tv" class="link-img">
+                        <img src="https://image.tmdb.org/t/p/w500/${program.poster_path}" alt="${program.title}">
+                    </a>
+                        
                     </div>
                     <div class="info-card">
-                        <h3 class="titulo-card">${program.name}</h3>
+                        <a href="/detalhes.html?id=${program.id}&type=tv" class="titulo-card">${program.name}</a>
                         <h4 class="genero-card">${program.genre_ids}</h4>
                         <div class="avaliacao-card">
                             <i class="fi fi-rr-star estrela"></i>
@@ -143,7 +149,7 @@ function carregarDestaque() {
         let filmeDestaque = data.results[0]
 
         htmlDestaque = `
-        <a href="/detalhes.html?id=${filmeDestaque.id}">${filmeDestaque.title}</a>
+        <a href="/detalhes.html?id=${filmeDestaque.id}&type=movie" class="titulo-destaque">${filmeDestaque.title}</a>
         <p class="descricao"> ${filmeDestaque.overview}</p>
         <div class="avaliacao-card">
             <i class="fi fi-rr-star estrela"></i>
