@@ -1,14 +1,17 @@
 const urlParams = new URLSearchParams(window.location.search);
+const type = urlParams.get("type")
 const id = urlParams.get("id");
+console.log(id)
 
-let urlDetalheFilme = `https://api.themoviedb.org/3/movie/${id}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
-let urlDetalheSerie = `https://api.themoviedb.org/3/tv/${id}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
+let urlDetalheFilme = `https://api.themoviedb.org/3/${type}/${id}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
 
-urlClassificacaoFilme = `https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=6c0b4180230783f9b7199576cb4504dc`
+let urlClassificacaoFilme = `https://api.themoviedb.org/3/${type}/${id}/release_dates?api_key=6c0b4180230783f9b7199576cb4504dc`
 
-urlProvedores = `https://api.themoviedb.org/3/movie/${id}/watch/providers?api_key=6c0b4180230783f9b7199576cb4504dc`
+let urlClassificacaoSerie = `https://api.themoviedb.org/3/tv/119051/content_ratings?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
 
-urlAtores = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
+let urlProvedores = `https://api.themoviedb.org/3/${type}/${id}/watch/providers?api_key=6c0b4180230783f9b7199576cb4504dc`
+
+let urlAtores = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
 
 let encontrou = false
 
@@ -22,6 +25,8 @@ function carregarDetalhes() {
         .then(data => {
 
             let generos = []
+            let titulo
+            let date
 
             for (let i = 0; i < data.genres.length; i++) {
 
@@ -29,16 +34,28 @@ function carregarDetalhes() {
 
             }
 
+            if(type == "tv"){
+                titulo = data.name
+                date = data.last_air_date
+            }
+            else{
+                titulo = data.title 
+                date = data.first_air_date
+            }
+
+            
+            
+
             html = `
             <div class="cartaz">
-            <img src="https://image.tmdb.org/t/p/original/${data.poster_path}" alt="${data.title}">
+            <img src="https://image.tmdb.org/t/p/original/${data.poster_path}" alt="${titulo}">
             </div>
             <div class="infos">
                 <div class="titulo-min-infos">
-                    <div class="titulo">${data.title}</div>
+                    <div class="titulo">${titulo}</div>
                     <div class="data-genero">
                         <div class="classificao-indicativa"></div>
-                        <div class="data-lancamento">${data.release_date} (US)</div>
+                        <div class="data-lancamento">${date}</div>
                         <div class="genero">${generos.join(", ")}</div>
                     </div>
                 </div>
@@ -57,8 +74,12 @@ function carregarDetalhes() {
             header.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://image.tmdb.org/t/p/original${data.backdrop_path})`
             header.style.backgroundSize = "cover"
 
+           
+
         })
-    fetch(urlClassificacaoFilme)
+
+    if (type == "movie") {
+        fetch(urlClassificacaoFilme)
         .then(response => response.json())
         .then(data => {
 
@@ -76,11 +97,32 @@ function carregarDetalhes() {
                 
                 document.querySelector('.data-lancamento').innerHTML = infoBR.release_date.slice(0,10)
             }
-            console.log(infoBR)
+            
 
             document.querySelector('.classificao-indicativa').innerHTML = infoBR.certification
 
         })
+    }
+    else{
+        fetch(urlClassificacaoSerie)
+        .then(response => response.json())
+        .then(data => {
+
+            console.log(data)
+            for (let i = 0; i < data.results.length; i++) {
+                
+                if (data.results[i].iso_3166_1 == "BR" && data.results[i].rating !== "" ) {
+                    
+                    document.querySelector('.classificao-indicativa').innerHTML = data.results[i].rating
+                    
+                }
+           
+            }
+
+            
+        })
+    }
+    
     fetch(urlProvedores)
         .then(response => response.json())
         .then(data => {
@@ -93,13 +135,24 @@ function carregarDetalhes() {
             
             let atores = data.cast
             let htmlAtores = ``
+            let scr
              console.log(atores)
 
-            for (let i = 0; i < atores.length && i < 10; i++) {
+            for (let i = 0; i < atores.length ; i++) {
+
+                if (atores[i].profile_path == undefined) {
+                    scr = `/img/user.png`
+
+                }
+                else{
+                    scr = `https://image.tmdb.org/t/p/original/${atores[i].profile_path}`
+                }
+
+                console.log(scr)
               
                 htmlAtores += `
                 <div class="card">
-                    <img src="https://image.tmdb.org/t/p/original/${atores[i].profile_path}" alt="" srcset="">
+                    <img src="${scr}" alt="" srcset="">
                     <div class="nome-ator">${atores[i].name}</div>
                     <div class="nome-personagem">${atores[i].character}</div>
                 </div>`
