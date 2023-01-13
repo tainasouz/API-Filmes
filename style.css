@@ -5,6 +5,13 @@
     font-family: Poppins;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
 /* CONFIGURAÇÕES DE TEXTO */
 .text-sx {
     font-size: 0.75rem;
@@ -60,7 +67,7 @@
 #header {
 
     padding: 1rem 5rem;
-    color: #FFFFFF; 
+    color: #FFFFFF;
     min-height: 30em;
 }
 
@@ -73,7 +80,8 @@
     margin: 1em 0em;
 
 }
-.logo img{
+
+.logo img {
     max-height: 24px;
 }
 
@@ -126,8 +134,13 @@ input[type="search"]::-webkit-search-results-decoration {
 #filme-destaque {
     max-width: 40em;
     margin: 4em 0em;
-   
 
+
+}
+.titulo-destaque{
+    font-size:1.5em;
+    font-weight: 700;
+    color: #eaeaea;
 }
 
 
@@ -138,7 +151,8 @@ input[type="search"]::-webkit-search-results-decoration {
 
 }
 
-.cards-filme, .cards-program {
+.cards-filme,
+.cards-program {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 16px;
@@ -146,7 +160,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .card {
-   
+
     max-width: 200px;
     max-height: 450px;
     overflow: hidden;
@@ -162,7 +176,8 @@ input[type="search"]::-webkit-search-results-decoration {
     border-radius: 4px;
 
 }
-.info-card{
+
+.info-card {
     display: flex;
     flex-direction: column;
     align-items: baseline;
@@ -170,21 +185,23 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .titulo-cards {
     font-size: 2rem;
-    margin: 2rem 0rem;
+    margin: 1rem 0rem;
+    
 
 }
-.titulo-card{
+
+.titulo-card {
     line-height: 103%;
+    font-weight: 700;
 }
 
- #body .num-card{
+#body .num-card {
     color: #8C8C8C;
     font-size: 0.75rem;
 
 }
 
-.genero-card{
+.genero-card {
     font-size: 0.75rem;
     color: #8C8C8C;
 }
-
