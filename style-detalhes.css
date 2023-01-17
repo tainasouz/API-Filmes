@@ -42,6 +42,13 @@
 .logo img{
     max-height: 24px;
 }
+button{
+    background-color: transparent;
+ }
+ .busca{
+     color:#eaeaea;
+     font-size: 1rem;
+ }
 
 .barra-pesquisa {
     width: 20em;
@@ -57,11 +64,7 @@
 
 }
 
-/* .busca {
-    color: #FFFFFF;
-    font-size: 1rem;
 
-} */
 
 input {
     background-color: transparent;
