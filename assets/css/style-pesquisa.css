@@ -169,7 +169,18 @@ input[type="search"]::-webkit-search-results-decoration {
 .info{
     display: flex;
     flex-direction: column;
+    align-self: center;
     padding: 1em;
     gap: 2em;
     align-content:center
+}
+
+.titulo-card{
+    font-size: 1.25em;
+    font-weight: 700;
+}
+.data-lancamento{
+    font-weight: 500;
+    font-size: 14px;
+    color: #8C8C8C;
 }
