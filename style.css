@@ -86,13 +86,14 @@ a {
 }
 button{
    background-color: transparent;
+   border: 0px;
 }
 .busca{
     color:#eaeaea;
     font-size: 1rem;
 }
 
-#pesquisa {
+.pesquisa {
     width: 20em;
     padding: 2px;
     display: flex;

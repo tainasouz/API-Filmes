@@ -14,20 +14,18 @@ let urlAtores = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=6c0b
 
 function carregaDados() {
 
-
     if (type == "movie") {
         fetch(urlClassificacaoFilme)
             .then(response => response.json())
             .then(data => data.results)
             .then(classificacao => {
-
+            
                 for (let i = 0; i < classificacao.length; i++) {
 
                     let divDataGenero = document.querySelector(".data-genero")
                     let newDiv
 
                     if (classificacao[i].iso_3166_1 == "BR") {
-
                         if (classificacao[i].release_dates[0].certification != "") {
                             newDiv = document.createElement("div")
                             newDiv.classList.add("classificao-indicativa")
@@ -35,6 +33,7 @@ function carregaDados() {
                             divDataGenero.appendChild(newDiv)
 
                         }
+
                         if (classificacao[i].release_dates[0].release_date != "") {
 
                             let dataNoFormat = classificacao[i].release_dates[0].release_date
@@ -46,6 +45,7 @@ function carregaDados() {
                             divDataGenero.appendChild(newDiv)
 
                         }
+
                     }
 
                 }
@@ -78,13 +78,13 @@ function carregaDados() {
             .catch(erro => console.error(erro))
     }
 
+
     fetch(urlDetalhes)
         .then(response => response.json())
         .then(data => {
             let html
             let titulo
             console.log(data)
-
             if (type == "tv") {
                 titulo = data.name
                 date = data.first_air_date
@@ -160,14 +160,15 @@ function carregaDados() {
 
 
 
+
         })
         .catch(error => alert(error))
 
 
-        fetch(urlAtores)
+    fetch(urlAtores)
         .then(response => response.json())
-        .then(data =>{
-         
+        .then(data => {
+
             if (data.cast.length > 0) {
 
                 let elenco = data.cast
@@ -180,17 +181,17 @@ function carregaDados() {
                     if (elenco[i].profile_path != null) {
                         scr = `https://image.tmdb.org/t/p/original/${elenco[i].profile_path}`
                     }
-                    else{
+                    else {
                         scr = "/img/user.png"
                     }
-                    
+
                     html += `
                     <div class="card">
                         <img src="${scr}" alt="${elenco[i].name}" srcset="">
                         <div class="nome-ator">${elenco[i].name}</div>
                         <div class="nome-personagem">${elenco[i].character}</div>
                     </div>`
-                    
+
                 }
 
                 document.querySelector(".cards-elenco").innerHTML = html
