@@ -17,7 +17,7 @@ function pagination_fetch(
 ) {
   return fetch(`${url}&page=${page}`) // Append the page number to the base URL
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => data.results)
     .then(results => {
       const response = [...Response, ...results]; // Combine the two arrays
 
