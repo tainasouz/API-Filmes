@@ -1,15 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <title>Watch MR</title>
 </head>
-<body>
-    
 
-    <script src="./main.js"></script>
+<body>
+    <div id="header">
+        <div id="navbar">
+            <a href="" class="logo">
+                <img src="/img/WatchMR.png" alt="" srcset="">
+            </a>
+
+            <div class="div-pesquisa">
+                <form action="/pesquisa.html" method="get" class="pesquisa">
+                    <input type="text" placeholder="Pesquisar" name="search" id="" value>
+                    <button title="butao-pesquisa">
+                        <i class="fi fi-rr-search busca"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div id="filme-destaque">
+            <a href="/detalhes.html?123"></a>
+            <h2 class="text-2xl"> </h2>
+            <p class="descricao"> </p>
+            <div class="avaliacao-card">
+                <i class="fi fi-rr-star estrela"></i>
+                <h4 class=num-card>100%</h4>
+            </div>
+        </div>
+    </div>
+
+    <div id="body">
+
+        <div id="filmes">
+            <div class="sessao">
+                <h1 class="titulo-cards">
+                    Filmes
+                </h1>
+            </div>
+            <div class="cards-filme">
+                <div class="card">
+                    <div class="img-card">
+                        <img src="" alt="">
+                    </div>
+                    <div class="info-card">
+                        <h3 class="titulo-card"></h3>
+                        <h4 class="genero-card"></h4>
+                        <div class="avaliacao-card">
+                            <i class="fi fi-rr-star estrela"></i>
+                            <h4 class=num-card></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="programa-tv">
+            <div class="sessao">
+                <h1 class="titulo-cards">
+                    Programas de TV
+                </h1>
+            </div>
+            <div class="cards-program">
+                <div class="card">
+                    <div class="img-card">
+                        <img src="" alt="">
+                    </div>
+                    <div class="info-card">
+                        <h3 class="titulo-card"></h3>
+                        <h4 class="genero-card"></h4>
+                        <div class="avaliacao-card">
+                            <i class="fi fi-rr-star estrela"></i>
+                            <h4 class=num-card></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="footer">
+        © 2023 Watch MR by Tainá Oliveira
+    </div>
+
+    <script type="module" src="/assets/main.js"></script>
 </body>
+
 </html>

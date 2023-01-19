@@ -68,7 +68,8 @@ a {
 
     padding: 1rem 5rem;
     color: #FFFFFF;
-    min-height: 30em;
+
+    background-color: black;
 }
 
 /* NAVBAR */
@@ -77,7 +78,6 @@ a {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 1em 0em;
 
 }
 
@@ -89,7 +89,7 @@ button{
    border: 0px;
 }
 .busca{
-    color:#eaeaea;
+    color:#ffffff;
     font-size: 1rem;
 }
 
@@ -107,11 +107,6 @@ button{
 
 }
 
-/* .busca {
-    color: #FFFFFF;
-    font-size: 1rem;
-
-} */
 
 input {
     background-color: transparent;
@@ -138,78 +133,43 @@ input[type="search"]::-webkit-search-results-decoration {
     display: none;
 }
 
-/* FILME DESTAQUE */
-#filme-destaque {
-    max-width: 40em;
-    margin: 4em 0em;
-
-
-}
-.titulo-destaque{
-    font-size:1.5em;
-    font-weight: 700;
-    color: #eaeaea;
-}
-
-
-
-/* BODY */
-#body {
+.body {
     margin: 0rem 5rem;
-
 }
 
-.cards-filme,
-.cards-program {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
-
+.titulo{
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 2em 0em;
 }
 
-.card {
+/* Card-pesquisa */
 
-    max-width: 200px;
-    max-height: 450px;
-    overflow: hidden;
-    border-radius: 4px;
-}
-
-.card img {
-    display: inline-block;
-    width: 100%;
-    min-height: 299px;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 4px;
-
-}
-
-.info-card {
+.resultados{
     display: flex;
     flex-direction: column;
-    align-items: baseline;
+    gap: 5em;
 }
 
-.titulo-cards {
-    font-size: 2rem;
-    margin: 1rem 0rem;
-    
-
+.card-result{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    max-height: 250px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
 }
 
-.titulo-card {
-    line-height: 103%;
-    font-weight: 700;
+.poster img{
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
-#body .num-card {
-    color: #8C8C8C;
-    font-size: 0.75rem;
-
-}
-
-.genero-card {
-    font-size: 0.75rem;
-    color: #8C8C8C;
+.info{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    gap: 2em;
+    align-content:center
 }
