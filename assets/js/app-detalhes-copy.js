@@ -91,7 +91,7 @@ function carregaDetalhesFilmesSeries() {
 
             if (data.poster_path == undefined || data.poster_path == "") {
 
-                html = `<img src="/img/poster.png" alt="${titulo}">`
+                html = `<img src="/assets/img/user.png" alt="${titulo}">`
             }
             else {
 
@@ -143,7 +143,7 @@ function carregaAtores() {
                     scr = `https://image.tmdb.org/t/p/original/${elenco[i].profile_path}`
                 }
                 else {
-                    scr = "/img/user.png"
+                    scr = "/assets/img/user.png"
                 }
 
                 html += `
@@ -159,6 +159,8 @@ function carregaAtores() {
 
         })
 }
+
+
 
 function adicionaDivData(date) {
     const divDataGenero = document.querySelector(".data-genero")
@@ -198,8 +200,7 @@ function carregaHTML(html, div) {
 
 }
 
-function carregaDados() {
-
+window.onload = () => {
     if (type == "movie") {
 
         carregaDadosFilme()
@@ -210,6 +211,4 @@ function carregaDados() {
 
     carregaDetalhesFilmesSeries()
     carregaAtores()
-
 }
-carregaDados()
