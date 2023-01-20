@@ -1,14 +1,11 @@
 const urlParams = new URLSearchParams(window.location.search);
 const search = urlParams.get("search")
 
-let urlSearch
-
 if (search == "") {
+  document.querySelector(".titulo").innerHTML = `Não foi encontrado nenhum resultado para "${search}"`
+}
 
-}
-else {
-  urlSearch = `https://api.themoviedb.org/3/search/multi?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&query=${search}&include_adult=false`
-}
+const urlSearch = `https://api.themoviedb.org/3/search/multi?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&query=${search}&include_adult=false`
 
 function pagination_fetch(
   url = urlSearch,
@@ -30,47 +27,44 @@ function pagination_fetch(
       return response;
     })
     .then(res => {
+      console.log(res)
 
-      if (res != undefined) {
+      if (res.length > 0) {
 
-        console.log(res)
         document.querySelector(".titulo").innerHTML = `Resultados para "${search}"`
 
         html = ``
 
         const dados = res.filter(e => e.media_type != "person")
-        
 
+        for (let i = 0; i < 10; i++) {
 
-        for (let i = 0, cont = 0; i < res.length && cont < 10; i++) {
-
-          let resultado = res[i]
+          let resultado = dados[i]
           let scr
           let date
 
-          if (resultado.media_type != "person") {
 
-            if (resultado.name == undefined) {
-              resultado.name = resultado.title
-            }
+          if (resultado.name == undefined) {
+            resultado.name = resultado.title
+          }
 
-            if (resultado.poster_path == undefined) {
-              scr = "/assets/img/poster.png"
-            }
-            else {
-              scr = `https://image.tmdb.org/t/p/original/${resultado.poster_path}`
-            }
+          if (resultado.poster_path == undefined) {
+            scr = "/assets/img/poster.png"
+          }
+          else {
+            scr = `https://image.tmdb.org/t/p/original/${resultado.poster_path}`
+          }
 
-            if (resultado.media_type == "movie") {
-              date = resultado.release_date
-            }
-            else {
-              date = resultado.first_air_date
-            }
+          if (resultado.media_type == "movie") {
+            date = resultado.release_date
+          }
+          else {
+            date = resultado.first_air_date
+          }
 
-            let dataFormat = date.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1')
+          let dataFormat = date.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1')
 
-            html += `
+          html += `
             <div class="card-result">
                 <div class="poster">
                     <img src="${scr}" alt="" >
@@ -91,11 +85,14 @@ function pagination_fetch(
                 </div>
                 </div>
             </div>`
+            
+            document.querySelector(".resultados").innerHTML = html
 
-            cont++
-          }
         }
-        document.querySelector(".resultados").innerHTML = html
+        
+      }
+      else{
+        document.querySelector(".titulo").innerHTML = `Não foi encontrado nenhum resultado para "${search}"`
       }
 
 
