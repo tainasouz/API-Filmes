@@ -31,40 +31,46 @@ function pagination_fetch(
     })
     .then(res => {
 
-      console.log(res)
-      document.querySelector(".titulo").innerHTML = `Resultados para "${search}"`
+      if (res != undefined) {
 
-      html = ``
+        console.log(res)
+        document.querySelector(".titulo").innerHTML = `Resultados para "${search}"`
 
-      for (let i = 0, cont = 0; i < res.length && cont < 10; i++) {
+        html = ``
 
-        let resultado = res[i]
-        let scr
-        let date
+        const dados = res.filter(e => e.media_type != "person")
+        
 
-        if (resultado.media_type != "person") {
 
-          if (resultado.name == undefined) {
-            resultado.name = resultado.title
-          }
+        for (let i = 0, cont = 0; i < res.length && cont < 10; i++) {
 
-          if (resultado.poster_path == undefined) {
-            scr = "/assets/img/poster.png"
-          }
-          else {
-            scr = `https://image.tmdb.org/t/p/original/${resultado.poster_path}`
-          }
+          let resultado = res[i]
+          let scr
+          let date
 
-          if (resultado.media_type == "movie") {
-            date = resultado.release_date
-          }
-          else {
-            date = resultado.first_air_date
-          }
+          if (resultado.media_type != "person") {
 
-          let dataFormat = date.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1')
+            if (resultado.name == undefined) {
+              resultado.name = resultado.title
+            }
 
-          html += `
+            if (resultado.poster_path == undefined) {
+              scr = "/assets/img/poster.png"
+            }
+            else {
+              scr = `https://image.tmdb.org/t/p/original/${resultado.poster_path}`
+            }
+
+            if (resultado.media_type == "movie") {
+              date = resultado.release_date
+            }
+            else {
+              date = resultado.first_air_date
+            }
+
+            let dataFormat = date.replace(/(\d*)-(\d*)-(\d*).*/, '$3/$2/$1')
+
+            html += `
             <div class="card-result">
                 <div class="poster">
                     <img src="${scr}" alt="" >
@@ -86,14 +92,14 @@ function pagination_fetch(
                 </div>
             </div>`
 
-          cont++
+            cont++
+          }
         }
-
-
-
+        document.querySelector(".resultados").innerHTML = html
       }
-      console.log(html)
-      document.querySelector(".resultados").innerHTML = html
+
+
+
     })
 
 }
