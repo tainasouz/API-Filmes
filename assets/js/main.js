@@ -1,7 +1,7 @@
-let urlFilme = "https://api.themoviedb.org/3/movie/popular?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&page="
-let urlProgramTV = "https://api.themoviedb.org/3/tv/popular?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&page="
+const urlFilme = "https://api.themoviedb.org/3/movie/popular?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&page="
+const urlProgramTV = "https://api.themoviedb.org/3/tv/popular?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&page="
 
-let urlDestaque = "https://api.themoviedb.org/3/discover/movie?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&region=BR&sort_by=popularity.desc&page=1&year=2023&vote_average.lte=8&with_watch_monetization_types=flatrate"
+const urlDestaque = "https://api.themoviedb.org/3/discover/movie?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&region=BR&sort_by=popularity.desc&page=1&year=2023&vote_average.lte=8&with_watch_monetization_types=flatrate"
 
 
 window.onload = () => {
@@ -12,100 +12,59 @@ window.onload = () => {
 
 
 function carregarFilmes() {
-    let movies = []
     let htmlFilmes = ``
-    let filme
-    let cont = 0
 
-    async function fetchData() {
-        const response = await fetch(urlFilme);
-        const data = await response.json();
-        movies = movies.concat(data.results)
+    fetch(urlFilme)
+        .then(res => res.json())
+        .then(data => data.results)
+        .then(movies => {
 
+            movies = movies.filter(filme => filme.vote_average > 5)
+            for (let i = 0; i < 12; i++) {
 
-        for (let i = 0; cont < 12 && i < movies.length; i++) {
-            let generofilme = []
+                const filme = movies[i]
 
-            filme = movies[i]
-            const response = await fetch(`https://api.themoviedb.org/3/movie/${filme.id}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`);
-            const dataFilme = await response.json();
-            let objectGeneros = dataFilme.genres
-
-            for (let i = 0; i < objectGeneros.length && i < 3; i++) {
-
-                generofilme.push(objectGeneros[i]["name"])
-
-            }
-
-            filme.genre_ids = generofilme.join(", ")
-
-
-            if (filme.vote_average > 6.0) {
                 htmlFilmes += `
-        <div class="card">
-                <div class="img-card">
-                    <a href="/detalhes.html?id=${filme.id}&type=movie" class="link-img">
-                        <img src="https://image.tmdb.org/t/p/w500/${filme.poster_path}" alt="${filme.title}">
-                    </a>
-                
-                </div>
-                <div class="info-card">
-                    <a href="/detalhes.html?id=${filme.id}&type=movie" class="titulo-card">${filme.title}</a>
-                    <h4 class="genero-card">${filme.genre_ids}</h4>
-                    <div class="avaliacao-card">
-                        <i class="fi fi-rr-star estrela"></i>
-                        <h4 class=num-card>${filme.vote_average}</h4>
-                    </div>
-                </div>
-            </div>`
+                <div class="card">
+                        <div class="img-card">
+                            <a href="/detalhes.html?id=${filme.id}&type=movie" class="link-img">
+                                <img src="https://image.tmdb.org/t/p/w500/${filme.poster_path}" alt="${filme.title}">
+                            </a>
+                        
+                        </div>
+                        <div class="info-card">
+                            <a href="/detalhes.html?id=${filme.id}&type=movie" class="titulo-card">${filme.title}</a>
+                            <h4 class="genero-card" id="card-${filme.id}"></h4>
+                            <div class="avaliacao-card">
+                                <i class="fi fi-rr-star estrela"></i>
+                                <h4 class=num-card>${filme.vote_average}</h4>
+                            </div>
+                        </div>
+                    </div>`
 
-                cont++
+                document.querySelector(".cards-filme").innerHTML = htmlFilmes
+                carregaGeneros(filme.id, `#card-${filme.id}`, "movie")
+
             }
 
-        }
-
-
-
-        document.querySelector(".cards-filme").innerHTML = htmlFilmes
-
-    }
-
-    fetchData().then(data => {
-        data;
-    });
+        })
 }
 
 function carregarProgramTV() {
-    let programs = []
     let htmlPrograms = ``
-    let program
-    let cont = 0
-
-    async function fetchData() {
-        const response = await fetch(urlProgramTV);
-        const data = await response.json();
-        programs = programs.concat(data.results)
 
 
-        for (let i = 0; cont < 12 && i < programs.length; i++) {
+    fetch(urlProgramTV)
+        .then(res => res.json())
+        .then(data => data.results)
+        .then(results => {
 
-            let generoProgram = []
+            const programs = results.filter(serie => serie.vote_average > 3)
 
-            program = programs[i]
-            const response = await fetch(`
-            https://api.themoviedb.org/3/tv/${program.id}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`);
-            const dataProgram = await response.json();
-            let objectGeneros = dataProgram.genres
+            for (let i = 0; i < 12; i++) {
 
-            for (let i = 0; i < objectGeneros.length && i < 3; i++) {
+                const program = programs[i]
 
-                generoProgram.push(objectGeneros[i]["name"])
-
-            }
-
-            program.genre_ids = generoProgram.join(", ")
-
-            if (program.vote_average > 0) {
                 htmlPrograms += `
                     <div class="card">
                     <div class="img-card">
@@ -116,62 +75,61 @@ function carregarProgramTV() {
                     </div>
                     <div class="info-card">
                         <a href="/detalhes.html?id=${program.id}&type=tv" class="titulo-card">${program.name}</a>
-                        <h4 class="genero-card">${program.genre_ids}</h4>
+                        <h4 class="genero-card" id="card-${program.id}"></h4>
                         <div class="avaliacao-card">
                             <i class="fi fi-rr-star estrela"></i>
                             <h4 class=num-card>${program.vote_average}</h4>
                         </div>
                     </div>
                 </div>`
-
-                cont++
-
+                carregaGeneros(program.id, `#card-${program.id}`, "tv")
             }
 
-        }
+            document.querySelector(".cards-program").innerHTML = htmlPrograms
 
-        document.querySelector(".cards-program").innerHTML = htmlPrograms
+        })
 
-    }
-
-    fetchData().then(data => {
-        data;
-    });
 }
 
 function carregarDestaque() {
-    let htmlDestaque 
 
-    async function fetchData() {
-        const response = await fetch(urlDestaque);
-        const data = await response.json();
+    let htmlDestaque
 
-        let filmeDestaque = data.results[0]
+    fetch(urlDestaque)
+        .then(res => res.json())
+        .then(data => data.results[0])
+        .then(filmeDestaque => {
 
-        htmlDestaque = `
-        <a href="/detalhes.html?id=${filmeDestaque.id}&type=movie" class="titulo-destaque">${filmeDestaque.title}</a>
-        <p class="descricao"> ${filmeDestaque.overview}</p>
-        <div class="avaliacao-card">
-            <i class="fi fi-rr-star estrela"></i>
-            <h4 class=num-card>${filmeDestaque.vote_average}</h4>
-        </div>`
+            htmlDestaque = `
+                <a href="/detalhes.html?id=${filmeDestaque.id}&type=movie" class="titulo-destaque">${filmeDestaque.title}</a>
+                <p class="descricao"> ${filmeDestaque.overview}</p>
+                <div class="avaliacao-card">
+                    <i class="fi fi-rr-star estrela"></i>
+                    <h4 class=num-card>${filmeDestaque.vote_average}</h4>
+                </div>`
 
-        
-        let divFilmeDestaque = document.querySelector("#filme-destaque")
-        divFilmeDestaque.innerHTML = htmlDestaque
 
-        let header = document.getElementById('header')
+            let divFilmeDestaque = document.querySelector("#filme-destaque")
+            divFilmeDestaque.innerHTML = htmlDestaque
 
-        header.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://image.tmdb.org/t/p/original${filmeDestaque.backdrop_path})`
-        header.style.backgroundSize = "cover"
+            let header = document.getElementById('header')
 
-    }
+            header.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://image.tmdb.org/t/p/original${filmeDestaque.backdrop_path})`
+            header.style.backgroundSize = "cover"
+        })
 
-    fetchData().then(data => {
-        data;
-    });
-
-    
 }
 
 
+function carregaGeneros(idFilme, id, type) {
+    return fetch(`
+    https://api.themoviedb.org/3/${type}/${idFilme}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`)
+        .then(res => res.json())
+        .then(data => {
+
+            const generos = data.genres.map(genero => genero.name)
+            document.querySelector(id).innerHTML = generos.slice(0, 4).join(", ")
+        })
+
+
+}
