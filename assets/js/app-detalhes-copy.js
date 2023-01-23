@@ -13,117 +13,34 @@ const urlProvedores = `https://api.themoviedb.org/3/${type}/${id}/watch/provider
 const urlAtores = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
 
 function carregaDadosFilme() {
-    fetch(urlClassificacaoFilme)
+    return fetch(urlClassificacaoFilme)
         .then(response => response.json())
         .then(res => res.results)
         .then(dados => {
 
             const dadosFilme = dados.filter(e => e.iso_3166_1 == "BR")[0].release_dates[0]
-            console.log(dadosFilme)
-
-            if (dadosFilme.certification != "") {
-
-                adiconaDivClassificacao(dadosFilme.certification)
-
-            }
-
-            if (dadosFilme.release_date != "") {
-
-                adicionaDivData(dadosFilme.release_date)
-
-            }
+            return dadosFilme
 
         })
         .catch(erro => console.error(erro))
 }
 
 function carregaDadosSerie() {
-    fetch(urlClassificacaoSerie)
+    return fetch(urlClassificacaoSerie)
         .then(response => response.json())
         .then(res => res.results)
         .then(dados => {
 
             const classificacao = dados.filter(e => e.iso_3166_1 == "BR")[0].rating
-
-            if (classificacao != "") {
-
-                adiconaDivClassificacao(classificacao)
-
-            }
+            return classificacao
 
         })
         .catch(erro => console.error(erro))
 }
 
-function carregaDetalhesFilmesSeries() {
-    fetch(urlDetalhes)
+function carregaDadosFilmesSeries() {
+    return fetch(urlDetalhes)
         .then(response => response.json())
-        .then(data => {
-
-            let html
-            let titulo
-
-
-
-            if (type == "tv") {
-
-                titulo = data.name
-                adicionaDivData(data.first_air_date)
-
-            }
-            else {
-                titulo = data.title
-            }
-
-            carregaHTML(titulo, ".titulo")
-            carregaHTML(data.overview, ".sinopse")
-
-
-
-            if (data.genres != undefined) {
-
-                const generos = data.genres.map(gen => gen.name).join(", ")
-                adicionaDiv(generos, ".data-genero", ".genero")
-
-            }
-
-
-
-            if (data.poster_path == undefined || data.poster_path == "") {
-
-                html = `<img src="/assets/img/user.png" alt="${titulo}">`
-            }
-            else {
-
-                html = `<img src="https://image.tmdb.org/t/p/original/${data.poster_path}?language=pt-BR&include_image_language=pt" alt="${titulo}">`
-            }
-
-            carregaHTML(html, ".cartaz")
-
-
-
-            if (data.backdrop_path != "") {
-                let header = document.querySelector('.header')
-
-                header.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://image.tmdb.org/t/p/original${data.backdrop_path})`
-                header.style.backgroundSize = "cover"
-            }
-
-
-
-            if (data.vote_average != undefined) {
-
-                let nota = data.vote_average
-
-                html = `
-                <i class="fi fi-rr-star estrela"></i>
-                <h4 class=num-card>${nota.toFixed(1)}</h4>`
-
-                document.querySelector(".classificacao").innerHTML = html
-
-            }
-
-        })
         .catch(error => alert(error))
 }
 
@@ -161,26 +78,89 @@ function carregaAtores() {
 }
 
 
+function adiconaDados(dataClassificacao, dadosGerais) {
 
-function adicionaDivData(date) {
-    const divDataGenero = document.querySelector(".data-genero")
-    const newDiv = document.createElement("div")
+    console.log(dataClassificacao, dadosGerais)
 
-    let data = date.replace(/(\d*)-(\d*)-(\d*).*/, '$3-$2-$1')
+    if (type === "movie") {
 
-    newDiv.classList.add("data-lancamento")
-    newDiv.innerHTML = data
-    divDataGenero.appendChild(newDiv)
-}
 
-function adiconaDivClassificacao(classificacao) {
+        if (dataClassificacao.certification != "") {
 
-    const divDataGenero = document.querySelector(".data-genero")
+            adicionaDiv(dataClassificacao.certification, ".data-genero", "classificao-indicativa")
 
-    const newDiv = document.createElement("div")
-    newDiv.classList.add("classificao-indicativa")
-    newDiv.innerHTML = classificacao
-    divDataGenero.appendChild(newDiv)
+
+        }
+
+        if (dataClassificacao.release_date != "") {
+
+            adicionaDiv(dataClassificacao.release_date.replace(/(\d*)-(\d*)-(\d*).*/, '$3-$2-$1'), ".data-genero", "data-lancamento")
+
+        }
+
+        titulo = dadosGerais.title
+
+
+
+    }
+    else {
+
+        if (dataClassificacao != "") {
+
+            adicionaDiv(dataClassificacao, ".data-genero", "classificao-indicativa")
+
+        }
+
+        titulo = dadosGerais.name
+        adicionaDiv(dadosGerais.first_air_date.replace(/(\d*)-(\d*)-(\d*).*/, '$3-$2-$1'), ".data-genero", "data-lancamento")
+
+    }
+
+    carregaHTML(titulo, ".titulo")
+    carregaHTML(dadosGerais.overview, ".sinopse")
+
+    if (dadosGerais.genres != undefined) {
+
+        const generos = dadosGerais.genres.map(gen => gen.name).join(", ")
+        adicionaDiv(generos, ".data-genero", ".genero")
+
+    }
+
+
+
+    if (dadosGerais.poster_path == undefined || dadosGerais.poster_path == "") {
+
+        html = `<img src="/assets/img/user.png" alt="${titulo}">`
+    }
+    else {
+
+        html = `<img src="https://image.tmdb.org/t/p/original/${dadosGerais.poster_path}?language=pt-BR&include_image_language=pt" alt="${titulo}">`
+    }
+
+    carregaHTML(html, ".cartaz")
+
+
+
+    if (dadosGerais.backdrop_path != "") {
+        let header = document.querySelector('.header')
+
+        header.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://image.tmdb.org/t/p/original${dadosGerais.backdrop_path})`
+        header.style.backgroundSize = "cover"
+    }
+
+
+
+    if (dadosGerais.vote_average != undefined) {
+
+        let nota = dadosGerais.vote_average
+
+        html = `
+        <i class="fi fi-rr-star estrela"></i>
+        <h4 class=num-card>${nota.toFixed(1)}</h4>`
+
+        document.querySelector(".classificacao").innerHTML = html
+
+    }
 
 }
 
@@ -201,14 +181,18 @@ function carregaHTML(html, div) {
 }
 
 window.onload = () => {
-    if (type == "movie") {
 
-        carregaDadosFilme()
-    }
-    else {
-        carregaDadosSerie()
-    }
-
-    carregaDetalhesFilmesSeries()
+    const carregaDataClassificacao = type === "movie" ? carregaDadosFilme : carregaDadosSerie
     carregaAtores()
+
+    Promise.all([carregaDataClassificacao(), carregaDadosFilmesSeries()]).then((dados) => {
+
+        const dataClassificacao = dados[0]
+        const dadosGerais = dados[1]
+
+
+        adiconaDados(dataClassificacao, dadosGerais)
+
+
+    })
 }
