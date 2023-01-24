@@ -184,3 +184,21 @@ input[type="search"]::-webkit-search-results-decoration {
     font-size: 14px;
     color: #8C8C8C;
 }
+#paginacao{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    margin: 2em 0em;
+
+    font-size: 14px;
+}
+
+#paginacao button{
+    background-color: #ededed;
+    border-radius: 5px;
+    padding: 0.5em;
+    min-width:50px;
+    font-weight: 400;
+}
