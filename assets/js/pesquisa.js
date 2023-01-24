@@ -3,10 +3,19 @@ const search = urlParams.get("search")
 
 const urlSearch = `https://api.themoviedb.org/3/search/multi?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&query=${search}&include_adult=false`
 
+const RESULTADOS = carregaTodosOsDados()
+
+var pagina = 0
+var numPaginas
+
+const btnAnt = document.querySelector("#btn-ant")
+const btnProx = document.querySelector("#btn-prox")
 
 
 window.onload = () => {
-  carregaTodosOsDados().then((listaResultados) => paginacao(listaResultados))
+
+  RESULTADOS.then((listaResultados) => paginacao(listaResultados))
+  
 }
 
 
@@ -31,12 +40,11 @@ function carregaTodosOsDados(
     })
 }
 
-var pagina = 0
-var numPaginas
+
 
 function paginacao(dados) {
 
-  console.log(dados)
+ 
 
   numPaginas = Math.ceil(dados.length / 10)
   const resultadoPagina = dados.slice(pagina * 10, (pagina + 1) * 10)
@@ -46,8 +54,51 @@ function paginacao(dados) {
     document.querySelector(".titulo").innerHTML = `Resultados para "${search}"`
     carregaResultados(resultadoPagina, pagina)
   }
+  else{
+    document.querySelector(".titulo").innerHTML = `Não foi encontrado nenhum resultado para "${search}"`
+  }
+
+   configBtn()
 
 }
+
+function configBtn() {
+
+  if (numPaginas == 1) {
+
+    btnProx.disabled = true
+    btnAnt.disabled = true
+  }
+  else if(pagina > 0 && pagina < numPaginas - 1 ){
+
+    btnProx.disabled = false
+    btnAnt.disabled = false
+  }
+  else if(pagina === 0 && numPaginas > 0){
+
+    btnProx.disabled = false
+    btnAnt.disabled = true
+  }
+  else if(pagina === numPaginas - 1){
+
+    btnProx.disabled = true
+    btnAnt.disabled = false
+  }
+
+}
+
+btnAnt.onclick = () => {
+  pagina--
+  RESULTADOS.then((resultados) => paginacao(resultados))
+  configBtn()
+}
+
+btnProx.onclick = () => {
+  pagina++
+  RESULTADOS.then((resultados) => paginacao(resultados))
+  configBtn()
+}
+
 
 
 
