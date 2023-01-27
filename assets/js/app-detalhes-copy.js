@@ -94,7 +94,9 @@ function adiconaDados(dataClassificacao, dadosGerais) {
 
         if (dataClassificacao.release_date != "") {
 
-            adicionaDiv(dataClassificacao.release_date.replace(/(\d*)-(\d*)-(\d*).*/, '$3-$2-$1'), ".data-genero", "data-lancamento")
+            const data = new Date(dataClassificacao.release_date)
+
+            adicionaDiv(data.getDate() + "/" + (data.getMonth()+1) + "/" + data.getFullYear(), ".data-genero", "data-lancamento")
 
         }
 
@@ -112,7 +114,10 @@ function adiconaDados(dataClassificacao, dadosGerais) {
         }
 
         titulo = dadosGerais.name
-        adicionaDiv(dadosGerais.first_air_date.replace(/(\d*)-(\d*)-(\d*).*/, '$3-$2-$1'), ".data-genero", "data-lancamento")
+
+        const data = new Date(dadosGerais.first_air_date)
+
+        adicionaDiv(data.getDate() + "/" + (data.getMonth()+1) + "/" + data.getFullYear(), ".data-genero", "data-lancamento")
 
     }
 
