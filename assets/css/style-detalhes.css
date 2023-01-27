@@ -6,6 +6,11 @@
 
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 /* AVALIAÇÃO */
 .classificacao {
     display: flex;
@@ -41,6 +46,26 @@
 }
 .logo img{
     max-height: 24px;
+}
+
+.div-logo-menu{
+
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+}
+
+#menu{
+    display: flex;
+   flex-direction: row;
+   gap: 1em;
+}
+
+.link-menu{
+
+    color: #ffffff;
+    font-weight: 500;
+
 }
 button{
     background-color: transparent;
@@ -170,7 +195,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 /* BODY - CARDS ATORES */
 .titulo-elenco{
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 700;
 }
 
