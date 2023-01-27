@@ -30,7 +30,7 @@ function carregaTodosOsDados(
     .then(results => {
       const response = [...Response, ...results.filter(e => e.media_type != "person")];
 
-      if (results.length !== 0 && response.length < 100) {
+      if (results.length !== 0 && page < 10) {
         page++;
 
         return carregaTodosOsDados(url, page, response);
