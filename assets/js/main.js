@@ -114,7 +114,7 @@ function carregarDestaque() {
 
             let header = document.getElementById('header')
 
-            header.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://image.tmdb.org/t/p/original${filmeDestaque.backdrop_path})`
+            header.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://image.tmdb.org/t/p/original${filmeDestaque.backdrop_path})`
             header.style.backgroundSize = "cover"
         })
 
