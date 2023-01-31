@@ -435,3 +435,33 @@ footer {
         min-width: 300px;
     }
 }
+
+@media screen and (min-width: 1125px) {
+
+    #header {
+
+        padding: 0em 5em;
+        gap: 1em;
+
+    }
+
+    #filme-destaque{
+        padding: 5em 0em;
+    }
+
+
+    .cards-filme,
+    .cards-program {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 16px;
+    }
+
+    #body {
+        margin: 0rem 4rem;
+
+    }
+    .pesquisa {
+        min-width: 350px;
+    }
+}
