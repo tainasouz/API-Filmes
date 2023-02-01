@@ -96,7 +96,7 @@ function adiconaDados(dataClassificacao, dadosGerais) {
 
             const data = new Date(dataClassificacao.release_date)
 
-            adicionaDiv(data.getDate() + "/" + (data.getMonth()+1) + "/" + data.getFullYear(), ".data-genero", "data-lancamento")
+            adicionaDiv(data.toLocaleDateString(), ".data-genero", "data-lancamento")
 
         }
 
@@ -127,7 +127,7 @@ function adiconaDados(dataClassificacao, dadosGerais) {
     if (dadosGerais.genres != undefined) {
 
         const generos = dadosGerais.genres.map(gen => gen.name).join(", ")
-        adicionaDiv(generos, ".data-genero", ".genero")
+        adicionaDiv(generos, ".data-genero", "genero")
 
     }
 
