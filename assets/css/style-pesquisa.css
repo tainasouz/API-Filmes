@@ -84,12 +84,14 @@ a {
 .logo img {
     max-height: 24px;
 }
-button{
-   background-color: transparent;
-   border: 0px;
+
+button {
+    background-color: transparent;
+    border: 0px;
 }
-.busca{
-    color:#ffffff;
+
+.busca {
+    color: #ffffff;
     font-size: 1rem;
 }
 
@@ -102,7 +104,7 @@ button{
     align-items: baseline;
     border: 2px solid #FFFFFF;
     filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));
-    border-radius: 4px;
+    border-radius: 10px;
 
 
 }
@@ -114,6 +116,7 @@ input {
     border: 0px;
     height: 24px;
     font-size: 1rem;
+    width: 100%;
 }
 
 input::placeholder {
@@ -137,7 +140,7 @@ input[type="search"]::-webkit-search-results-decoration {
     margin: 0rem 5rem;
 }
 
-.titulo{
+.titulo {
     font-weight: 700;
     font-size: 1.5rem;
     margin: 2em 0em;
@@ -145,46 +148,48 @@ input[type="search"]::-webkit-search-results-decoration {
 
 /* Card-pesquisa */
 
-.resultados{
+.resultados {
     display: flex;
     flex-direction: column;
     gap: 5em;
 }
 
-.card-result{
+.card-result {
     display: flex;
     flex-direction: row;
     gap: 2em;
-    max-height: 250px;
+    /* max-height: 250px; */
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
 }
 
-.poster img{
+.poster img {
     max-height: 250px;
     object-fit: cover;
     border-radius: 5px;
 }
 
-.info{
+.info {
     display: flex;
     flex-direction: column;
     align-self: center;
     padding: 1em;
     gap: 2em;
-    align-content:center
+    align-content: center
 }
 
-.titulo-card{
+.titulo-card {
     font-size: 1.25em;
     font-weight: 700;
 }
-.data-lancamento{
+
+.data-lancamento {
     font-weight: 500;
     font-size: 14px;
     color: #8C8C8C;
 }
-#paginacao{
+
+#paginacao {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -195,10 +200,73 @@ input[type="search"]::-webkit-search-results-decoration {
     font-size: 14px;
 }
 
-#paginacao button{
+#paginacao button {
     background-color: #ededed;
     border-radius: 5px;
-    min-width:50px;
+    min-width: 50px;
     font-weight: 400;
     font-size: 16px;
+}
+
+@media screen and (min-width:320px) and (max-width:425px) {
+
+    #header {
+        padding: 1em;
+
+    }
+
+    #navbar {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .logo img {
+        max-height: 20px;
+    }
+
+    .div-pesquisa{
+        width: 100%;
+    }
+
+    .pesquisa{
+        width: 100%;
+    }
+
+    .body {
+        margin: 1em;
+    }
+
+    .titulo{
+        margin: 1em 0em;
+    }
+
+    .resultados {
+        gap: 1em;
+    }
+
+    .card-result {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        align-items: center;
+        padding: 1em;
+    }
+
+    .info{
+        gap: 1em;
+    }
+
+    .sinopse {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+    
+}
+
+@media screen {
+    
 }
