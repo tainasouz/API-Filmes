@@ -29,10 +29,8 @@ a {
 /* CABEÇALHO */
 .header {
 
-    padding: 1rem 5rem;
     color: #FFFFFF;
-    min-height: 30em;
-    max-height: 1900;
+
 }
 
 /* NAVBAR */
@@ -41,43 +39,46 @@ a {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 1em 0em
+    /* padding: 1em 2em; */
 
 }
-.logo img{
+
+.logo img {
     max-height: 24px;
 }
 
-.div-logo-menu{
+.div-logo-menu {
 
     display: flex;
     flex-direction: row;
     gap: 2em;
 }
 
-#menu{
+#menu {
     display: flex;
-   flex-direction: row;
-   gap: 1em;
+    flex-direction: row;
+    gap: 1em;
 }
 
-.link-menu{
+.link-menu {
 
     color: #ffffff;
     font-weight: 500;
 
 }
-button{
+
+button {
     background-color: transparent;
     border: 0px;
- }
- .busca{
-     color:#eaeaea;
-     font-size: 1rem;
- }
+}
+
+.busca {
+    color: #eaeaea;
+    font-size: 1rem;
+}
 
 .barra-pesquisa {
-    width: 20em;
+    /* width: 20em; */
     padding: 2px;
     display: flex;
     flex-direction: row;
@@ -85,7 +86,7 @@ button{
     align-items: center;
     border: 2px solid #FFFFFF;
     filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));
-    border-radius: 4px;
+    border-radius: 10px;
 
 
 }
@@ -129,10 +130,10 @@ input[type="search"]::-webkit-search-results-decoration {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 5em;
+    /* gap: 5em; */
 
 
-    margin: 4em 0em;
+    /* margin: 4em 0em; */
 
 
 
@@ -140,6 +141,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .cartaz {
     max-width: 300px;
+    border-radius: 10px;
 
 }
 
@@ -148,7 +150,7 @@ input[type="search"]::-webkit-search-results-decoration {
     min-height: 299px;
     height: 100%;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
 .titulo {
@@ -157,10 +159,8 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .data-genero {
-    width: max-content;
     display: flex;
     flex-direction: row;
-    justify-content: center;
     gap: 12px;
 
     margin-right: 3em;
@@ -184,22 +184,20 @@ input[type="search"]::-webkit-search-results-decoration {
 .sinopse {
     font-weight: 400;
     font-size: 16px;
-    display: flex;
-    flex-wrap: wrap;
-
-
+  
 }
-.body{
-    margin: 2em 5em;
+
+.body {
+    padding: 2em 3em;
 }
 
 /* BODY - CARDS ATORES */
-.titulo-elenco{
+.titulo-elenco {
     font-size: 1.5em;
     font-weight: 700;
 }
 
-.cards-elenco{
+.cards-elenco {
     display: flex;
     flex-direction: row;
     gap: 2em;
@@ -208,14 +206,16 @@ input[type="search"]::-webkit-search-results-decoration {
     margin: 2em 0em;
 }
 
-.cards-elenco::-webkit-scrollbar{
+.cards-elenco::-webkit-scrollbar {
     height: 6px;
 
 }
-.cards-elenco::-webkit-scrollbar-thumb{
+
+.cards-elenco::-webkit-scrollbar-thumb {
     background-color: #d1d1d1;
     border-radius: 12px;
 }
+
 .card img {
     max-width: 175px;
     border-radius: 12px;
@@ -231,4 +231,150 @@ input[type="search"]::-webkit-search-results-decoration {
     font-size: 14px;
     line-height: 16px;
     color: #8C8C8C;
+}
+
+@media screen and (min-width: 320px) and (max-width: 650px) {
+
+    .header {
+
+        padding: 1em 2em;
+        gap: 1em;
+
+    }
+
+    .navbar {
+        display: flex;
+        flex-direction: column;
+        /* padding: 2em; */
+        gap: 1em;
+    }
+
+    .div-logo-menu {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+
+    .link-menu {
+        font-size: 12px;
+    }
+
+    .logo img {
+        max-height: 20px;
+    }
+
+    .barra-pesquisa {
+        width: 100%;
+        max-height: 32px;
+        border-radius: 10px;
+
+    }
+
+    input {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .detalhes {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+    
+    }
+
+    .cartaz img{
+        max-width: 200px;
+        margin: 1em;
+    }
+
+    .titulo{
+        font-size: 24px;
+    }
+    .sinopse{
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .data-genero{
+      font-size: 14px;
+      margin: 5px 0px;
+     
+    }
+
+    .body{
+        padding: 2em;
+    }
+
+    .card img {
+        max-width: 150px;
+        border-radius: 12px;
+    }
+
+    .titulo-elenco{
+        font-size: 20px;
+    }
+    .cards-elenco{
+        margin: 1em 0em;
+    }
+    .nome-ator{
+        font-size: 16px;
+    }
+
+ 
+
+
+}
+
+@media screen and (min-width: 650px) and (max-width:1024px){
+  .header{
+    padding: 1em 3em;
+  }
+
+  .link-menu {
+    font-size: 14px;
+}
+
+  .detalhes{
+    padding: 2em 0em;
+    gap: 2em;
+  }
+
+  .cartaz img{
+    width: 200px;
+  }
+
+  .titulo{
+    font-size: 28px;
+  }
+
+
+
+  @media screen and (min-width: 768px) {
+    .barra-pesquisa{
+        width: 300px;
+    }
+}
+}
+
+@media screen and (min-width: 1024px) {
+    .header{
+        padding: 1em 5em;
+    }
+
+    .barra-pesquisa{
+        width: 350px;
+    }
+
+    .detalhes{
+        padding: 3em 0em;
+        gap: 3em;
+    }
+
+    .cartaz img{
+        width: 275px;
+    }
 }
