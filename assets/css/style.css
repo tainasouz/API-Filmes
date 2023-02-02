@@ -66,9 +66,9 @@ a {
 /* CABEÇALHO */
 #header {
 
-    padding: 0em 5em;
     color: #FFFFFF;
-    /* min-height: 30em; */
+
+
 }
 
 /* NAVBAR */
@@ -125,7 +125,7 @@ button {
     align-items: baseline;
     border: 2px solid #FFFFFF;
     filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.25));
-    border-radius: 4px;
+    border-radius: 10px;
 
 
 }
@@ -171,24 +171,9 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 
-
-/* BODY */
-#body {
-    margin: 0rem 5rem;
-
-}
-
-.cards-filme,
-.cards-program {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
-
-}
-
 .card {
 
-    max-width: 200px;
+    /* max-width: 200px; */
     max-height: 450px;
     overflow: hidden;
     border-radius: 4px;
@@ -249,7 +234,9 @@ footer {
 
 }
 
-@media screen and (min-width: 319px) and (max-width: 426px) {
+
+@media screen and (min-width: 320px) and (max-width: 550px) {
+
 
     #header {
 
@@ -266,19 +253,19 @@ footer {
         gap: 1em;
     }
 
-    .div-logo-menu{
-        width: 100% ;
+    .div-logo-menu {
+        width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
     }
-    
 
-    .link-menu{
+
+    .link-menu {
         font-size: 12px;
     }
 
-    #filme-destaque{
+    #filme-destaque {
         padding: 2em 0em;
         gap: 1em;
     }
@@ -287,6 +274,96 @@ footer {
     .descricao {
         font-weight: 400;
         font-size: 14px;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        -webkit-box-orient: vertical;
+    }
+
+    .titulo-destaque {
+        font-size: 24px;
+        font-weight: 700;
+        color: #eaeaea;
+        margin-bottom: 12px;
+    }
+
+    .logo img {
+        max-height: 20px;
+    }
+
+    .div-pesquisa {
+        width: 100%;
+    }
+
+    .pesquisa {
+        width: 100%;
+        max-height: 32px;
+        border-radius: 10px;
+
+    }
+
+    input {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .cards-filme,
+    .cards-program {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    #body {
+        margin: 0rem 2rem;
+
+    }
+
+}
+
+@media screen and (min-width: 550px) and (max-width: 768px) {
+    #header {
+
+        padding: 0em 2em;
+        color: #FFFFFF;
+        gap: 1em;
+
+    }
+
+    #navbar {
+        display: flex;
+        flex-direction: column;
+        /* padding: 2em; */
+        gap: 1em;
+    }
+
+    .div-logo-menu {
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    
+
+    .link-menu{
+        font-size: 12px;
+    }
+
+    #filme-destaque{
+
+        padding: 2em 0em;
+        gap: 1em;
+    }
+
+
+    .descricao {
+        font-weight: 400;
+        font-size: 14px;
+
 
         overflow: hidden; 
         text-overflow: ellipsis; 
@@ -306,6 +383,7 @@ footer {
         max-height: 20px;
     }
 
+
     .div-pesquisa{
         width: 100%;
     }
@@ -316,12 +394,83 @@ footer {
         border-radius: 10px;
 
     }
+
     input {
-       width: 100%;
+        width: 100%;
         font-size: 14px;
     }
 
+    .cards-filme,
+    .cards-program {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    #body {
+        margin: 0rem 2rem;
+
+    }
+}
 
 
+@media screen and (min-width: 768px) and (max-width: 1125px) {
 
+    #header {
+
+        padding: 0em 4em;
+        gap: 1em;
+
+    }
+
+    #filme-destaque{
+        padding: 5em 0em;
+    }
+
+
+    .cards-filme,
+    .cards-program {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+
+    #body {
+        margin: 0rem 4rem;
+
+    }
+
+    .pesquisa {
+        min-width: 300px;
+    }
+}
+
+@media screen and (min-width: 1125px) {
+
+    #header {
+
+        padding: 0em 5em;
+        gap: 1em;
+
+    }
+
+    #filme-destaque{
+        padding: 5em 0em;
+    }
+
+
+    .cards-filme,
+    .cards-program {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 16px;
+    }
+
+    #body {
+        margin: 0rem 4rem;
+
+    }
+    .pesquisa {
+        min-width: 350px;
+    }
 }
