@@ -178,6 +178,15 @@ input[type="search"]::-webkit-search-results-decoration {
     align-content: center
 }
 
+
+.sinopse {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
 .titulo-card {
     font-size: 1.25em;
     font-weight: 700;
@@ -208,12 +217,14 @@ input[type="search"]::-webkit-search-results-decoration {
     font-size: 16px;
 }
 
+
 @media screen and (min-width:320px) and (max-width:425px) {
 
 
     #navbar {
         display: flex;
         flex-direction: column;
+
         gap: 1em;
         padding: 1em 2em;
     }
@@ -273,6 +284,7 @@ input[type="search"]::-webkit-search-results-decoration {
         display: flex;
         flex-direction: column;
         gap: 1em;
+
     }
 
     .logo img {
@@ -306,4 +318,5 @@ input[type="search"]::-webkit-search-results-decoration {
 
 
 }
+
 
