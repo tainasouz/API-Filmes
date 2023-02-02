@@ -151,7 +151,7 @@ function carregaResultados(dados) {
             </div>
             <div class="body-card">
                 <div class="sinopse">
-                  ${limitaTamSinopse(resultado.overview)}
+                  ${resultado.overview}
                 </div>
             </div>
             </div>
@@ -165,13 +165,13 @@ function carregaResultados(dados) {
 
 
 
-function limitaTamSinopse(texto) {
+// function limitaTamSinopse(texto) {
 
-  if (texto.length > 380) {
-    return `${texto.slice(0, 380)}...`
-  }
-  return texto
+//   if (texto.length > 380) {
+//     return `${texto.slice(0, 380)}...`
+//   }
+//   return texto
 
-}
+// }
 
 
