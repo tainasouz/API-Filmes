@@ -14,12 +14,9 @@ window.onload = () => {
 function carregarFilmes() {
     let htmlFilmes = ``
 
-    fetch(urlFilme)
+    fetch(`http://localhost:3000/carregaFilmes`)
         .then(res => res.json())
-        .then(data => data.results)
         .then(movies => {
-
-            movies = movies.filter(filme => filme.vote_average > 5)
             for (let i = 0; i < 12; i++) {
 
                 const filme = movies[i]
@@ -27,13 +24,13 @@ function carregarFilmes() {
                 htmlFilmes += `
                 <div class="card">
                         <div class="img-card">
-                            <a href="/detalhes.html?id=${filme.id}&type=movie" class="link-img">
+                            <a href="/frontend/detalhes.html?id=${filme.id}&type=movie" class="link-img">
                                 <img src="https://image.tmdb.org/t/p/w500/${filme.poster_path}" alt="${filme.title}">
                             </a>
                         
                         </div>
                         <div class="info-card">
-                            <a href="/detalhes.html?id=${filme.id}&type=movie" class="titulo-card">${filme.title}</a>
+                            <a href="/frontend/detalhes.html?id=${filme.id}&type=movie" class="titulo-card">${filme.title}</a>
                             <h4 class="genero-card" id="card-${filme.id}"></h4>
                             <div class="avaliacao-card">
                                 <i class="fi fi-rr-star estrela"></i>
@@ -54,58 +51,54 @@ function carregarProgramTV() {
     let htmlPrograms = ``
 
 
-    fetch(urlProgramTV)
+    fetch(`http://localhost:3000/carregaSeries`)
         .then(res => res.json())
-        .then(data => data.results)
-        .then(results => {
+        .then(series => {
 
-            const programs = results.filter(serie => serie.vote_average > 3)
 
             for (let i = 0; i < 12; i++) {
 
-                const program = programs[i]
+                const serie = series[i]
 
                 htmlPrograms += `
-                    <div class="card">
-                    <div class="img-card">
-                    <a href="/detalhes.html?id=${program.id}&type=tv" class="link-img">
-                        <img src="https://image.tmdb.org/t/p/w500/${program.poster_path}" alt="${program.title}">
-                    </a>
-                        
+                <div class="card">
+                <div class="img-card">
+                <a href="/frontend/detalhes.html?id=${serie.id}&type=tv" class="link-img">
+                    <img src="https://image.tmdb.org/t/p/w500/${serie.poster_path}" alt="${serie.title}">
+                </a>
+                    
+                </div>
+                <div class="info-card">
+                    <a href="/frontend/detalhes.html?id=${serie.id}&type=tv" class="titulo-card">${serie.name}</a>
+                    <h4 class="genero-card" id="card-${serie.id}"></h4>
+                    <div class="avaliacao-card">
+                        <i class="fi fi-rr-star estrela"></i>
+                        <h4 class=num-card>${serie.vote_average}</h4>
                     </div>
-                    <div class="info-card">
-                        <a href="/detalhes.html?id=${program.id}&type=tv" class="titulo-card">${program.name}</a>
-                        <h4 class="genero-card" id="card-${program.id}"></h4>
-                        <div class="avaliacao-card">
-                            <i class="fi fi-rr-star estrela"></i>
-                            <h4 class=num-card>${program.vote_average}</h4>
-                        </div>
-                    </div>
-                </div>`
-                carregaGeneros(program.id, `#card-${program.id}`, "tv")
+                </div>
+            </div>`
+                carregaGeneros(serie.id, `#card-${serie.id}`, "tv")
             }
 
             document.querySelector(".cards-program").innerHTML = htmlPrograms
 
         })
-
 }
 
 function carregarDestaque() {
 
     let htmlDestaque
 
-    fetch(urlDestaque)
+    fetch("http://localhost:3000/carregaDestaque")
         .then(res => res.json())
-        .then(data => data.results[0])
-        .then(filmeDestaque => {
+        .then(destaque => {
 
             htmlDestaque = `
-                <a href="/detalhes.html?id=${filmeDestaque.id}&type=movie" class="titulo-destaque">${filmeDestaque.title}</a>
-                <p class="descricao"> ${filmeDestaque.overview}</p>
+                <a href="/detalhes.html?id=${destaque.id}&type=movie" class="titulo-destaque">${destaque.title}</a>
+                <p class="descricao"> ${destaque.overview}</p>
                 <div class="avaliacao-card">
                     <i class="fi fi-rr-star estrela"></i>
-                    <h4 class=num-card>${filmeDestaque.vote_average}</h4>
+                    <h4 class=num-card>${destaque.vote_average}</h4>
                 </div>`
 
 
@@ -114,7 +107,7 @@ function carregarDestaque() {
 
             let header = document.getElementById('header')
 
-            header.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://image.tmdb.org/t/p/original${filmeDestaque.backdrop_path})`
+            header.style.background = `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://image.tmdb.org/t/p/original${destaque.backdrop_path})`
             header.style.backgroundSize = "cover"
         })
 
@@ -122,14 +115,9 @@ function carregarDestaque() {
 
 
 function carregaGeneros(idFilme, id, type) {
-    return fetch(`
-    https://api.themoviedb.org/3/${type}/${idFilme}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`)
+    return fetch(`http://localhost:3000/carregaGenero/${type}/${idFilme}`)
         .then(res => res.json())
-        .then(data => {
-
-            const generos = data.genres.map(genero => genero.name)
+        .then(generos => {
             document.querySelector(id).innerHTML = generos.slice(0, 4).join(", ")
         })
-
-
 }
