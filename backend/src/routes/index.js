@@ -100,12 +100,26 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
 
 router.get('/dadosAtores/:type/:id', async function (req, res, next,) {
 
+    const type = req.params.type
+    const id = req.params.id
+
     const response = await fetch(`${env.URL_BASE}${type}/${id}/credits?${env.API_KEY}&language=pt-BR`)
     const responseJson = await response.json()
+    const atores = responseJson.cast
 
-    res.status(200).send(responseJson);
-});
+    res.status(200).send(atores);
+}); 
 
-router.get('/')
+router.get('/pesquisa/:query/:page', async function (req, res, next) {
+    
+    const query = req.params.query
+    const page = req.params.page
+
+
+    const response = await fetch(`${env.URL_BASE}search/multi?${env.API_KEY}&language=pt-BR&query=${query}&include_adult=false&page=${page}`)
+    const responseJson = await response.json()
+
+    res.status(200).send(responseJson.results)
+})
 
 export default router

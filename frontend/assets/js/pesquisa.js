@@ -1,7 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const search = urlParams.get("search")
 
-const urlSearch = `https://api.themoviedb.org/3/search/multi?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR&query=${search}&include_adult=false`
+const urlSearch = `http://localhost:3000/pesquisa/${search}`
 
 const RESULTADOS = carregaTodosOsDados()
 
@@ -24,9 +24,8 @@ function carregaTodosOsDados(
   page = 1,
   Response = []
 ) {
-  return fetch(`${url}&page=${page}`)
+  return fetch(`${url}/${page}`)
     .then(response => response.json())
-    .then(data => data.results)
     .then(results => {
       const response = [...Response, ...results.filter(e => e.media_type != "person")];
 
@@ -120,7 +119,7 @@ function carregaResultados(dados) {
     }
 
     if (resultado.poster_path == undefined) {
-      scr = "/assets/img/poster.png"
+      scr = "/frontend/assets/img/poster.png"
     }
     else {
       scr = `https://image.tmdb.org/t/p/original/${resultado.poster_path}`

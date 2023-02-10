@@ -4,24 +4,22 @@ const id = urlParams.get("id");
 
 const urlDetalhes = `http://localhost:3000/detalhes/${type}/${id}`
 
-const urlClassificacaoFilme = `https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=6c0b4180230783f9b7199576cb4504dc`
+const urlClassificacaoFilme = `http://localhost:3000/classificacaoFilme/${id}`
 
-const urlClassificacaoSerie = `https://api.themoviedb.org/3/tv/119051/content_ratings?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
+const urlClassificacaoSerie = `http://localhost:3000/classificacaoSerie/${id}`
 
-const urlProvedores = `https://api.themoviedb.org/3/${type}/${id}/watch/providers?api_key=6c0b4180230783f9b7199576cb4504dc`
-
-const urlAtores = `http://localhost:3000/detalhes/${type}/${id}`
+const urlAtores = `http://localhost:3000/dadosAtores/${type}/${id}`
 
 function carregaDadosFilme() {
-    return fetch(`http://localhost:3000/classificacaoFilme/${id}`)
+    return fetch(urlClassificacaoFilme)
         .then(response => response.json())
         .catch(erro => console.error(erro))
 }
 
 function carregaDadosSerie() {
-    return fetch(`http://localhost:3000/classificacaoFilme/${id}`)
+    return fetch(urlClassificacaoSerie)
         .then(response => response.json())
-        .then(res => console.log(res))
+        .then(res => res)
         .catch(erro => console.error(erro))
 }
 
@@ -34,17 +32,16 @@ function carregaDadosFilmesSeries() {
 function carregaAtores() {
     fetch(urlAtores)
         .then(response => response.json())
-        .then(data => data.cast)
-        .then(elenco => {
+        .then(atores => {
 
             let scr
             let html = ``
 
-            for (let i = 0; i < elenco.length && i < 20; i++) {
+            for (let i = 0; i < atores.length && i < 20; i++) {
 
 
-                if (elenco[i].profile_path != null) {
-                    scr = `https://image.tmdb.org/t/p/original/${elenco[i].profile_path}`
+                if (atores[i].profile_path != null) {
+                    scr = `https://image.tmdb.org/t/p/original/${atores[i].profile_path}`
                 }
                 else {
                     scr = "/assets/img/user.png"
@@ -52,9 +49,9 @@ function carregaAtores() {
 
                 html += `
                     <div class="card">
-                        <img src="${scr}" alt="${elenco[i].name}" srcset="">
-                        <div class="nome-ator">${elenco[i].name}</div>
-                        <div class="nome-personagem">${elenco[i].character}</div>
+                        <img src="${scr}" alt="${atores[i].name}" srcset="">
+                        <div class="nome-ator">${atores[i].name}</div>
+                        <div class="nome-personagem">${atores[i].character}</div>
                     </div>`
 
             }
