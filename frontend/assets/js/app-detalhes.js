@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const type = urlParams.get("type")
 const id = urlParams.get("id");
 
-const urlDetalhes = `https://api.themoviedb.org/3/${type}/${id}?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
+const urlDetalhes = `http://localhost:3000/detalhes/${type}/${id}`
 
 const urlClassificacaoFilme = `https://api.themoviedb.org/3/movie/${id}/release_dates?api_key=6c0b4180230783f9b7199576cb4504dc`
 
@@ -10,31 +10,18 @@ const urlClassificacaoSerie = `https://api.themoviedb.org/3/tv/119051/content_ra
 
 const urlProvedores = `https://api.themoviedb.org/3/${type}/${id}/watch/providers?api_key=6c0b4180230783f9b7199576cb4504dc`
 
-const urlAtores = `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=6c0b4180230783f9b7199576cb4504dc&language=pt-BR`
+const urlAtores = `http://localhost:3000/detalhes/${type}/${id}`
 
 function carregaDadosFilme() {
-    return fetch(urlClassificacaoFilme)
+    return fetch(`http://localhost:3000/classificacaoFilme/${id}`)
         .then(response => response.json())
-        .then(res => res.results)
-        .then(dados => {
-
-            const dadosFilme = dados.filter(e => e.iso_3166_1 == "BR")[0].release_dates[0]
-            return dadosFilme
-
-        })
         .catch(erro => console.error(erro))
 }
 
 function carregaDadosSerie() {
-    return fetch(urlClassificacaoSerie)
+    return fetch(`http://localhost:3000/classificacaoFilme/${id}`)
         .then(response => response.json())
-        .then(res => res.results)
-        .then(dados => {
-
-            const classificacao = dados.filter(e => e.iso_3166_1 == "BR")[0].rating
-            return classificacao
-
-        })
+        .then(res => console.log(res))
         .catch(erro => console.error(erro))
 }
 
@@ -117,7 +104,7 @@ function adiconaDados(dataClassificacao, dadosGerais) {
 
         const data = new Date(dadosGerais.first_air_date)
 
-        adicionaDiv(data.getDate() + "/" + (data.getMonth()+1) + "/" + data.getFullYear(), ".data-genero", "data-lancamento")
+        adicionaDiv(data.getDate() + "/" + (data.getMonth() + 1) + "/" + data.getFullYear(), ".data-genero", "data-lancamento")
 
     }
 

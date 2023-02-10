@@ -59,26 +59,51 @@ router.get('/carregaDestaque', async function (req, res, next,) {
     res.status(200).send(destaque);
 });
 
-router.get('/dadosSerie', async function (req, res, next,) {
+router.get('/classificacaoSerie/:id', async function (req, res, next,) {
 
-    const response = fetch(`${env.URL_BASE}movie/${id}`)
+    const id = req.params.id
+    
+    const response = await fetch(`${env.URL_BASE}tv/${id}/content_ratings?${env.API_KEY}`)
+    const responseJson = await response.json()
 
-    res.status(200).send(destaque);
+    const classificacaoSerie = responseJson.results.filter(e=> e.iso_3166_1 == "BR")[0].rating
+
+    res.status(200).send(classificacaoSerie)
 });
 
 router.get('/classificacaoFilme/:id', async function (req, res, next,) {
 
-    res.status(200).send(destaque);
+    const id = req.params.id
+    
+    const response = await fetch(`${env.URL_BASE}/movie/${id}/release_dates?${env.API_KEY}`)
+    const responseJson = await response.json()
+
+    const dadosFilme = responseJson.results.filter(e => e.iso_3166_1 == 'BR')[0].release_dates[0]
+
+    res.status(200).send(dadosFilme);
 });
 
-router.get('/dadosFilmeSerie', async function (req, res, next,) {
+router.get('/detalhes/:type/:id', async function (req, res, next,) {
 
-    res.status(200).send(destaque);
+    const type = req.params.type
+    const id = req.params.id
+
+    if (type != "movie" && type != "tv") {
+        return res.status(400).send()
+    }
+
+    const response = await fetch(`${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`)
+    const responseJson = await response.json()
+
+    res.status(200).send(responseJson);
 });
 
-router.get('/dadosAtores', async function (req, res, next,) {
+router.get('/dadosAtores/:type/:id', async function (req, res, next,) {
 
-    res.status(200).send(destaque);
+    const response = await fetch(`${env.URL_BASE}${type}/${id}/credits?${env.API_KEY}&language=pt-BR`)
+    const responseJson = await response.json()
+
+    res.status(200).send(responseJson);
 });
 
 router.get('/')
