@@ -40,9 +40,13 @@ router.get('/carregaGenero/:type/:id', async function (req, res, next,) {
     if (type != "movie" && type != "tv") {
         return res.status(400).send()
     }
-
+    
     const response = await fetch(`${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`);
 
+    if (response.hasOwnProperty('success') && response.success == false ) {
+        return res.status(404).send()
+    }
+    
     const responseJson = await response.json();
     const generos = responseJson.genres.map(genero => genero.name)
 
@@ -62,11 +66,11 @@ router.get('/carregaDestaque', async function (req, res, next,) {
 router.get('/classificacaoSerie/:id', async function (req, res, next,) {
 
     const id = req.params.id
-    
+
     const response = await fetch(`${env.URL_BASE}tv/${id}/content_ratings?${env.API_KEY}`)
     const responseJson = await response.json()
 
-    const classificacaoSerie = responseJson.results.filter(e=> e.iso_3166_1 == "BR")[0].rating
+    const classificacaoSerie = responseJson.results.filter(e => e.iso_3166_1 == "BR")[0].rating
 
     res.status(200).send(classificacaoSerie)
 });
@@ -74,7 +78,7 @@ router.get('/classificacaoSerie/:id', async function (req, res, next,) {
 router.get('/classificacaoFilme/:id', async function (req, res, next,) {
 
     const id = req.params.id
-    
+
     const response = await fetch(`${env.URL_BASE}/movie/${id}/release_dates?${env.API_KEY}`)
     const responseJson = await response.json()
 
@@ -108,10 +112,10 @@ router.get('/dadosAtores/:type/:id', async function (req, res, next,) {
     const atores = responseJson.cast
 
     res.status(200).send(atores);
-}); 
+});
 
 router.get('/pesquisa/:query/:page', async function (req, res, next) {
-    
+
     const query = req.params.query
     const page = req.params.page
 
