@@ -473,4 +473,7 @@ footer {
     .pesquisa {
         min-width: 350px;
     }
+    .card img{
+        min-height: 325px;
+    }
 }
