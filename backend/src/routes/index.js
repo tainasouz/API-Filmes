@@ -10,6 +10,23 @@ router.use(cors())
 
 const env = process.env
 
+function carregaIsoFilme(results) {
+    let dados = results.filter(e => e.iso_3166_1 == 'BR')
+
+    if (dados.length > 0) {
+        return dados[0]
+    }
+
+    dados = results.filter(e => e.iso_3166_1 == 'US')
+
+    if (dados.length > 0) {
+        return dados[0]
+    }
+    
+    return results[0]
+
+}
+
 router.get('/carregaSeries', async function (req, res, next) {
 
     const url = `${env.URL_BASE}tv/popular?${env.API_KEY}&language=pt-BR`
@@ -126,9 +143,19 @@ router.get('/classificacaoFilme/:id', async function (req, res, next,) {
 
     if (response.ok) {
 
-        const dadosFilme = responseJson.results.filter(e => e.iso_3166_1 == 'BR')[0].release_dates[0]
+        const dadosFilme = carregaIsoFilme(responseJson.results)
 
-        return res.status(200).send(dadosFilme);
+        console.log(dadosFilme )
+        
+
+        if (dadosFilme.release_dates.length > 0) {
+
+             return res.status(200).send(dadosFilme);
+        }
+
+        return res.status(200).send([])
+        // Qual seria a mensagem adequada
+
     }
 
 
@@ -217,9 +244,9 @@ router.get('/pesquisa/:query/:page', async function (req, res, next) {
 
 
     if (response.ok) {
-       return res.status(200).send(responseJson.results) 
+        return res.status(200).send(responseJson.results)
     }
-   
+
     return res.status(404).send()
 })
 

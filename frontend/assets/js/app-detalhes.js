@@ -10,17 +10,47 @@ const urlClassificacaoSerie = `http://localhost:3000/classificacaoSerie/${id}`
 
 const urlAtores = `http://localhost:3000/dadosAtores/${type}/${id}`
 
+function adiconaClassificacaoDataBR(dados) {
+
+    if (dados.certification != "") {
+
+        adicionaDiv(dados.certification, ".data-genero", "classificao-indicativa")
+
+
+    }
+
+    if (dados.release_date != "") {
+
+        const data = new Date(dados.release_date)
+
+        adicionaDiv(data.toLocaleDateString(), ".data-genero", "data-lancamento")
+
+    }
+}
+
+function adiconaDataOutros(dados, iso) {
+
+
+    if (dados.release_date != "") {
+
+        const data = new Date(dados.release_date)
+
+        adicionaDiv(data.toLocaleDateString() + ` (${iso})`, ".data-genero", "data-lancamento")
+
+    }
+}
+
 function carregaDadosFilme() {
     return fetch(urlClassificacaoFilme)
         .then(response => response.json())
-        .catch(erro => console.error(erro))
+        .catch(erro => alert(erro))
 }
 
 function carregaDadosSerie() {
     return fetch(urlClassificacaoSerie)
         .then(response => response.json())
         .then(res => res)
-        .catch(erro => console.error(erro))
+        .catch(erro => alert(erro))
 }
 
 function carregaDadosFilmesSeries() {
@@ -59,34 +89,28 @@ function carregaAtores() {
             carregaHTML(html, ".cards-elenco")
 
         })
+        .catch(error => {
+            console.log(error)
+        })
 }
 
 
 function adiconaDados(dataClassificacao, dadosGerais) {
 
-    console.log(dataClassificacao, dadosGerais)
-
     if (type === "movie") {
 
 
-        if (dataClassificacao.certification != "") {
+        if (dataClassificacao.iso_3166_1 == "BR") {
 
-            adicionaDiv(dataClassificacao.certification, ".data-genero", "classificao-indicativa")
-
-
+            adiconaClassificacaoDataBR(dataClassificacao.release_dates[0])
+            
+        }
+        else {
+            adiconaDataOutros(dataClassificacao.release_dates[0], dataClassificacao.iso_3166_1 )
         }
 
-        if (dataClassificacao.release_date != "") {
-
-            const data = new Date(dataClassificacao.release_date)
-
-            adicionaDiv(data.toLocaleDateString(), ".data-genero", "data-lancamento")
-
-        }
 
         titulo = dadosGerais.title
-
-
 
     }
     else {
