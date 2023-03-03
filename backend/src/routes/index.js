@@ -145,7 +145,6 @@ router.get('/classificacaoFilme/:id', async function (req, res, next,) {
 
         const dadosFilme = carregaIsoFilme(responseJson.results)
 
-        console.log(dadosFilme )
         
 
         if (dadosFilme.release_dates.length > 0) {

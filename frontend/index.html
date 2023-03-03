@@ -15,88 +15,101 @@
 </head>
 
 <body>
-    <div id="header">
-        <div id="navbar">
-            <div class="div-logo-menu">
-                <a href="./index.html" class="logo">
-                    <img src="./assets/img/WatchMR.png" alt="" srcset="">
+        <div id="header" class="skeleton-destaque">
+            <div id="navbar">
+                <div class="div-logo-menu">
+                    <a href="./index.html" class="logo">
+                        <img src="./assets/img/WatchMR.png" alt="" srcset="">
+                    </a>
+                    <div id="menu">
+                        <a href="./filmes.html" class="link-menu">Filmes</a>
+                        <a href="./series.html" class="link-menu">Séries</a>
+                    </div>
+
+                </div>
+
+                <div class="div-pesquisa">
+                    <form action="/frontend/pesquisa.html" method="get" class="pesquisa">
+                        <input type="text" placeholder="Pesquisar" name="search" id="" value>
+                        <button title="butao-pesquisa">
+                            <i class="fi fi-rr-search busca"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="filme-destaque">
+                <a href="">
+                    <div class="skeleton skeleton-text skeleton-titulo-destaque"></div>
                 </a>
-                <div id="menu">
-                    <a href="./filmes.html" class="link-menu">Filmes</a>
-                    <a href="./series.html" class="link-menu">Séries</a>
+                <h2 class="text-2xl">
+                    <div class="skeleton skeleton-text skeleton-text__body"></div>
+                    <div class="skeleton skeleton-text skeleton-text__body"></div>
+                    <div class="skeleton skeleton-text skeleton-text__body"></div>
+                    <div class="skeleton skeleton-text skeleton-text__body"></div>
+                </h2>
+                <p class="descricao"> </p>
+                <div class="avaliacao-card">
+                    <div class="skeleton skeleton-text skeleton-text-classificacao-destaque"></div>
                 </div>
-
-            </div>
-
-            <div class="div-pesquisa">
-                <form action="/frontend/pesquisa.html" method="get" class="pesquisa">
-                    <input type="text" placeholder="Pesquisar" name="search" id="" value>
-                    <button title="butao-pesquisa">
-                        <i class="fi fi-rr-search busca"></i>
-                    </button>
-                </form>
             </div>
         </div>
-        <div id="filme-destaque">
-            <a href="./detalhes.html?123"></a>
-            <h2 class="text-2xl"> </h2>
-            <p class="descricao"> </p>
-            <div class="avaliacao-card">
-                <i class="fi fi-rr-star estrela"></i>
-                <h4 class=num-card>100%</h4>
-            </div>
-        </div>
-    </div>
 
-    <div id="body">
+        <div id="body">
 
-        <div id="filmes">
-            <div class="sessao">
-                <h1 class="titulo-cards text-2xl">
-                    Filmes
-                </h1>
-            </div>
-            <div class="cards-filme">
-                <div class="card">
-                    <div class="img-card">
-                        <img src="" alt="">
-                    </div>
-                    <div class="info-card">
-                        <h3 class="titulo-card"></h3>
-                        <h4 class="genero-card"></h4>
-                        <div class="avaliacao-card">
-                            <i class="fi fi-rr-star estrela"></i>
-                            <h4 class=num-card></h4>
+            <div id="filmes">
+                <div class="sessao">
+                    <h1 class="titulo-cards text-2xl">
+                        Filmes
+                    </h1>
+                </div>
+                <div class="cards-filme ">
+                    <div class="card">
+                        <div class="img-card">
+                            <img class="skeleton" id="logo-img" alt="" />
+                        </div>
+                        <div class="info-card">
+                            <h3 class="titulo-card">
+                                <div class="skeleton skeleton-text skeleton-titulo-card"></div>
+                            </h3>
+                            <h4 class="genero-card">
+                                <div class="skeleton skeleton-text skeleton-text__body"></div>
+                            </h4>
+                            <div class="avaliacao-card">
+                                <div class="skeleton skeleton-text skeleton-text-classificacao"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="programa-tv">
-            <div class="sessao">
-                <h1 class="titulo-cards text-2xl">
-                    Séries
-                </h1>
-            </div>
-            <div class="cards-program">
-                <div class="card">
-                    <div class="img-card">
-                        <img src="" alt="">
-                    </div>
-                    <div class="info-card">
-                        <h3 class="titulo-card"></h3>
-                        <h4 class="genero-card"></h4>
-                        <div class="avaliacao-card">
-                            <i class="fi fi-rr-star estrela"></i>
-                            <h4 class=num-card></h4>
+            <div id="programa-tv">
+                <div class="sessao">
+                    <h1 class="titulo-cards text-2xl">
+                        Séries
+                    </h1>
+                </div>
+                <div class="cards-program ">
+                    <div class="card">
+                        <div class="img-card">
+                            <img class="skeleton" id="logo-img" alt="" />
+                        </div>
+                        <div class="info-card">
+                            <h3 class="titulo-card">
+                                <div class="skeleton skeleton-text skeleton-titulo-card"></div>
+                            </h3>
+                            <h4 class="genero-card">
+                                <div class="skeleton skeleton-text skeleton-text__body"></div>
+                            </h4>
+                            <div class="avaliacao-card">
+                                <div class="skeleton skeleton-text skeleton-text-classificacao"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    </div>
+        </div>
 
     <footer>
         <div>© 2023 Watch MR by Tainá Oliveira</div>

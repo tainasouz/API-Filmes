@@ -54,7 +54,7 @@ a {
     display: flex;
     flex-direction: row;
     align-items: center;
-
+    width: 100%;
     font-size: 0.75rem;
 }
 
@@ -192,18 +192,17 @@ input[type="search"]::-webkit-search-results-decoration {
 .info-card {
     display: flex;
     flex-direction: column;
-    align-items: baseline;
+    /* align-items: baseline; */
 }
 
 .titulo-cards {
     margin: 1rem 0rem;
-
-
 }
 
 .titulo-card {
     line-height: 103%;
     font-weight: 700;
+    width: 100%;
 }
 
 #body .num-card {
@@ -347,13 +346,13 @@ footer {
         justify-content: space-between;
     }
 
-    
 
-    .link-menu{
+
+    .link-menu {
         font-size: 12px;
     }
 
-    #filme-destaque{
+    #filme-destaque {
 
         padding: 2em 0em;
         gap: 1em;
@@ -365,10 +364,10 @@ footer {
         font-size: 14px;
 
 
-        overflow: hidden; 
-        text-overflow: ellipsis; 
+        overflow: hidden;
+        text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 6; 
+        -webkit-line-clamp: 6;
         -webkit-box-orient: vertical;
     }
 
@@ -384,12 +383,12 @@ footer {
     }
 
 
-    .div-pesquisa{
+    .div-pesquisa {
         width: 100%;
     }
 
-    .pesquisa{
-       width: 100%;
+    .pesquisa {
+        width: 100%;
         max-height: 32px;
         border-radius: 10px;
 
@@ -423,7 +422,7 @@ footer {
 
     }
 
-    #filme-destaque{
+    #filme-destaque {
         padding: 5em 0em;
     }
 
@@ -454,7 +453,7 @@ footer {
 
     }
 
-    #filme-destaque{
+    #filme-destaque {
         padding: 5em 0em;
     }
 
@@ -470,10 +469,64 @@ footer {
         margin: 0rem 4rem;
 
     }
+
     .pesquisa {
         min-width: 350px;
     }
-    .card img{
+
+    .card img {
         min-height: 325px;
     }
+}
+
+.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(203, 11%, 85%);
+    }
+
+    100% {
+        background-color: hsl(200, 20%, 95%);
+    }
+}
+
+.skeleton-destaque {
+    background-color:#dadada;
+}
+
+
+
+.skeleton-text {
+    width: 100%;
+    height: 0.7rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+}
+.skeleton-titulo-destaque{
+    height: 1.3rem;
+    max-width: 30%;
+}
+
+.skeleton-text__body {
+    width: 75%;
+}
+
+.skeleton-text-classificacao-destaque{
+    width: 10%;
+    height: 0.5;
+}
+
+.skeleton-text-classificacao{
+    width: 30%;
+    height: 0.5;
+}
+
+.skeleton-footer {
+    width: 30%;
+}
+.skeleton-titulo-card{
+    height: 1em;
 }

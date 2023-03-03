@@ -94,8 +94,8 @@ function carregarDestaque() {
         .then(destaque => {
 
             htmlDestaque = `
-                <a href="/detalhes.html?id=${destaque.id}&type=movie" class="titulo-destaque">${destaque.title}</a>
-                <p class="descricao"> ${destaque.overview}</p>
+                <a href="/frontend/detalhes.html?id=${destaque.id}&type=movie" class="titulo-destaque">${destaque.title}</a>
+                <p class="descricao "> ${destaque.overview}</p>
                 <div class="avaliacao-card">
                     <i class="fi fi-rr-star estrela"></i>
                     <h4 class=num-card>${destaque.vote_average}</h4>
