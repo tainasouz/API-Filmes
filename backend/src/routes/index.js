@@ -22,7 +22,7 @@ function carregaIsoFilme(results) {
     if (dados.length > 0) {
         return dados[0]
     }
-    
+
     return results[0]
 
 }
@@ -78,14 +78,18 @@ router.get('/carregaDestaque', async function (req, res, next,) {
 });
 // Quais seriam os erros dessas requisição?
 
-
 router.get('/carregaGenero/:type/:id', async function (req, res, next,) {
 
     const type = req.params.type
     const id = req.params.id
 
     if (type != "movie" && type != "tv") {
-        return res.status(400).send("O tipo solicitado não existe.")
+        const erro = [{
+            "code": 1,
+            "mensagem": "oii"
+        }]
+
+        return res.status(400).send(erro)
     }
 
     const URL = `${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`
@@ -114,14 +118,25 @@ router.get('/classificacaoSerie/:id', async function (req, res, next,) {
 
     const URL = `${env.URL_BASE}tv/${id}/content_ratings?${env.API_KEY}`
 
+
     const response = await fetch(URL)
     const responseJson = await response.json()
 
     if (response.ok) {
 
-        const classificacaoSerie = responseJson.results.filter(e => e.iso_3166_1 == "BR")[0].rating
+        
 
-        return res.status(200).send(classificacaoSerie)
+        if (responseJson.results.length == 0) {
+            return res.status(200).send([])
+        }
+        const classificacaoSerie = responseJson.results.filter(e => e.iso_3166_1 == "BR")
+
+        if (classificacaoSerie.length == 0 ) {
+            return res.status(200).send([])
+        }
+
+
+        return res.status(200).send(classificacaoSerie[0].rating)
     }
 
     if (responseJson.status_code == 34) {
@@ -145,11 +160,9 @@ router.get('/classificacaoFilme/:id', async function (req, res, next,) {
 
         const dadosFilme = carregaIsoFilme(responseJson.results)
 
-        
-
         if (dadosFilme.release_dates.length > 0) {
 
-             return res.status(200).send(dadosFilme);
+            return res.status(200).send(dadosFilme);
         }
 
         return res.status(200).send([])
@@ -177,7 +190,12 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
     const URL = `${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`
 
     if (type != "movie" && type != "tv") {
-        return res.status(400).send()
+        const erro = [{
+            "code": 1,
+            "mensagem": "oii"
+        }]
+
+        return res.status(400).send(erro)
     }
 
     const response = await fetch(URL)
@@ -191,7 +209,9 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
 
     if (responseJson.status_code == 34) {
 
-        return res.status(400).send("Não foi possível encontrar esse conteúdo")
+        
+
+        return res.status(400).send(erro)
 
     }
 
@@ -207,14 +227,19 @@ router.get('/dadosAtores/:type/:id', async function (req, res, next,) {
     const URL = `${env.URL_BASE}${type}/${id}/credits?${env.API_KEY}&language=pt-BR`
 
     if (type != "movie" && type != "tv") {
-        return res.status(400).send()
+        const erro = {
+            "code": 1,
+            "titulo": "Requisição Ruim",
+            "mensagem": "O tipo inserido não é válido"
+        }
+
+        return res.status(400).send(erro)
     }
 
     const response = await fetch(URL)
-    const responseJson = await response.json()
-
 
     if (response.ok) {
+        const responseJson = await response.json()
         const atores = responseJson.cast
         return res.status(200).send(atores);
     }
@@ -222,11 +247,17 @@ router.get('/dadosAtores/:type/:id', async function (req, res, next,) {
 
     if (responseJson.status_code == 34) {
 
-        return res.status(400).send("Não foi possível encontrar esse conteúdo")
+        const erro = {
+            "code": 2,
+            "titulo": "Conteúdo não encontrado",
+            "mensagem": "O recurso solicitado não pôde ser encontrado."
+        }
+
+        return res.status(400).send(erro)
 
     }
 
-    return res.status(response.status).send(responseJson.status_message)
+    return res.status(400).send("deu ruim")
 
 });
 

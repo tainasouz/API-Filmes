@@ -1,3 +1,5 @@
+const swal = require('sweetalert')
+
 const urlParams = new URLSearchParams(window.location.search);
 const type = urlParams.get("type")
 const id = urlParams.get("id");
@@ -15,7 +17,6 @@ function adiconaClassificacaoDataBR(dados) {
     if (dados.certification != "") {
 
         adicionaDiv(dados.certification, ".data-genero", "classificao-indicativa")
-
 
     }
 
@@ -43,20 +44,30 @@ function adiconaDataOutros(dados, iso) {
 function carregaDadosFilme() {
     return fetch(urlClassificacaoFilme)
         .then(response => response.json())
-        .catch(erro => alert(erro))
+        .catch(erro => {
+            console.log(erro)
+        })
 }
 
 function carregaDadosSerie() {
     return fetch(urlClassificacaoSerie)
         .then(response => response.json())
-        .then(res => res)
-        .catch(erro => alert(erro))
+        .then(res => {
+            if (res.length > 0) {
+                return res
+            }
+
+            return ""
+        })
+        .catch(erro => {
+            console.log(erro)
+        })
 }
 
 function carregaDadosFilmesSeries() {
     return fetch(urlDetalhes)
         .then(response => response.json())
-        .catch(error => alert(error))
+        .catch(error => console.log(error))
 }
 
 function carregaAtores() {
@@ -74,12 +85,14 @@ function carregaAtores() {
                     scr = `https://image.tmdb.org/t/p/original/${atores[i].profile_path}`
                 }
                 else {
-                    scr = "/assets/img/user.png"
+                    scr = "./assets/img/user.png"
                 }
 
                 html += `
                     <div class="card">
-                        <img src="${scr}" alt="${atores[i].name}" srcset="">
+                        <div class="cartaz-autor">
+                            <img src="${scr}" alt="${atores[i].name}" srcset="">
+                        </div>
                         <div class="nome-ator">${atores[i].name}</div>
                         <div class="nome-personagem">${atores[i].character}</div>
                     </div>`
@@ -90,7 +103,7 @@ function carregaAtores() {
 
         })
         .catch(error => {
-            console.log(error)
+            console.log("oii")
         })
 }
 
@@ -103,10 +116,10 @@ function adiconaDados(dataClassificacao, dadosGerais) {
         if (dataClassificacao.iso_3166_1 == "BR") {
 
             adiconaClassificacaoDataBR(dataClassificacao.release_dates[0])
-            
+
         }
         else {
-            adiconaDataOutros(dataClassificacao.release_dates[0], dataClassificacao.iso_3166_1 )
+            adiconaDataOutros(dataClassificacao.release_dates[0], dataClassificacao.iso_3166_1)
         }
 
 
@@ -143,7 +156,7 @@ function adiconaDados(dataClassificacao, dadosGerais) {
 
     if (dadosGerais.poster_path == undefined || dadosGerais.poster_path == "") {
 
-        html = `<img src="/assets/img/user.png" alt="${titulo}">`
+        html = `<img src="./assets/img/user.png" alt="${titulo}">`
     }
     else {
 
@@ -200,12 +213,13 @@ window.onload = () => {
 
     Promise.all([carregaDataClassificacao(), carregaDadosFilmesSeries()]).then((dados) => {
 
+        console.log(dados)
+
         const dataClassificacao = dados[0]
         const dadosGerais = dados[1]
 
 
         adiconaDados(dataClassificacao, dadosGerais)
-
 
     })
 }

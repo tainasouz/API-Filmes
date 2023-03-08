@@ -17,17 +17,13 @@
 
 <body>
 
-    <div class="header">
+    <div class="header skeleton-destaque">
 
         <div class="navbar">
             <div class="div-logo-menu">
                 <a href="/frontend/index.html" class="logo">
                     <img src="/frontend/assets/img/WatchMR.png" alt="" srcset="">
                 </a>
-                <div id="menu">
-                    <a href="" class="link-menu">Filmes</a>
-                    <a href="" class="link-menu">Séries</a>
-                </div>
 
             </div>
 
@@ -42,30 +38,27 @@
         </div>
         <div class="detalhes">
             <div class="cartaz">
-
+                <img class="skeleton" id="logo-img" alt="" />
             </div>
             <div class="infos">
                 <div class="titulo-min-infos">
-                    <div class="titulo"></div>
+                    <div class="titulo">
+                        <div class="skeleton skeleton-text skeleton-titulo-destaque"></div>
+                    </div>
                     <div class="data-genero">
 
                     </div>
                 </div>
                 <div class="sinopse-classificacao">
-                    <div class="sinopse"></div>
+                    <div class="sinopse">
+                        <div class="skeleton skeleton-text skeleton-text__body"></div>
+                        <div class="skeleton skeleton-text skeleton-text__body"></div>
+                        <div class="skeleton skeleton-text skeleton-text__body"></div>
+                        <div class="skeleton skeleton-text skeleton-text__body"></div>
+                    </div>
                     <div class="classificacao">
-
+                        <div class="skeleton skeleton-text skeleton-text-classificacao"></div>
                     </div>
-                </div>
-                <div class="provedores">
-                    <div class="provedor">
-                        <div class="titulo-provedor"></div>
-                        <div class="logo-provedor">
-                            <img src="" alt="">
-                        </div>
-                        <div class="nome-provedor"></div>
-                    </div>
-
                 </div>
             </div>
 
@@ -77,13 +70,20 @@
         <div class="elenco">
             <div class=" titulo-elenco">Elenco Principal</div>
             <div class="cards-elenco">
-
+                <div class="card">
+                    <div class="cartaz-autor">
+                        <img class="skeleton" id="logo-img" alt="" />
+                    </div>
+                    <div class="nome-ator skeleton skeleton-text skeleton-titulo-card"></div>
+                    <div class="nome-personagem skeleton skeleton-text skeleton-text-classificacao"></div>
+                </div>`
             </div>
         </div>
 
     </div>
 
-    <script src="/frontend/assets/js/app-detalhes.js"></script>
+    <!-- <script src="./assets/js/app-detalhes.js"></script> -->
+    <script src="./assets/js/dist/dundle.js" ></script>
 </body>
 
 </html>

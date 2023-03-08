@@ -21,15 +21,11 @@
                 <a href="/frontend/index.html" class="logo">
                     <img src="./assets/img/WatchMR.png" alt="" srcset="">
                 </a>
-                <div id="menu">
-                    <a href="./filmes.html" class="link-menu">Filmes</a>
-                    <a href="./series.html" class="link-menu">Séries</a>
-                </div>
 
             </div>
 
             <div class="div-pesquisa">
-                <form action="./pesquisa.html" method="get" class="pesquisa">
+                <form action="/frontend/pesquisa.html" method="get" class="pesquisa">
                     <input type="text" placeholder="Pesquisar" name="search" id="" value>
                     <button title="butao-pesquisa">
                         <i class="fi fi-rr-search busca"></i>
@@ -41,16 +37,38 @@
     <div class="body">
         <div class="titulo ">Resultados</div>
         <div class="resultados">
-            
+            <div class="card-result">
+                <div class="poster">
+                    <img class="skeleton skeleton-img-card" id="logo-img" alt="" />
+                </div>
+                <div class="info">
+                <div class="header-card">
+                    <div class="titulo-card">
+                        <div class="skeleton skeleton-text skeleton-titulo-card"></div>
+                    </div>
+                    <div class="data-lancamento">
+                        <div class="skeleton skeleton-text skeleton-text-classificacao-destaque"></div>
+                    </div>
+                </div>
+                <div class="body-card">
+                    <div class="sinopse">
+                        <div class="skeleton skeleton-text skeleton-text__body"></div>
+                        <div class="skeleton skeleton-text skeleton-text__body"></div>
+                        <div class="skeleton skeleton-text skeleton-text__body"></div>
+                        <div class="skeleton skeleton-text skeleton-text__body"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
-
-        <div id="paginacao">
+       <div id="paginacao">
             <button id="btn-ant" >&lsaquo;&lsaquo;</button>
             <button id="btn-prox">&rsaquo;&rsaquo;</button>
         </div>
-
-       
     </div>
+    <footer>
+        
+    </footer>
 
     <script src="./assets/js/pesquisa.js"></script>
 </body>

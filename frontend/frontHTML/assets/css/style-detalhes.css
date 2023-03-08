@@ -138,6 +138,7 @@ input[type="search"]::-webkit-search-results-decoration {
     display: flex;
     flex-direction: column;
     gap: 28px;
+    width: 100%;
 }
 
 .detalhes {
@@ -162,15 +163,16 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .cartaz img {
     width: 100%;
-    min-height: 299px;
+    min-height: 350px;
     height: 100%;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .titulo {
     font-size: 36px;
     font-weight: 800;
+    width: 100%;
 }
 
 .data-genero {
@@ -442,7 +444,57 @@ input[type="search"]::-webkit-search-results-decoration {
         font-size: 14px;
     }
 
+}
+
+.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(203, 11%, 85%);
+    }
+
+    100% {
+        background-color: hsl(200, 20%, 95%);
+    }
+}
+
+.skeleton-destaque {
+    background-color:#dadada;
+}
 
 
 
+.skeleton-text {
+    width: 100%;
+    height: 0.7rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+}
+.skeleton-titulo-destaque{
+    height: 2rem;
+    max-width: 30%;
+}
+
+.skeleton-text__body {
+    width: 75%;
+}
+
+.skeleton-text-classificacao-destaque{
+    width: 10%;
+    height: 0.5;
+}
+
+.skeleton-text-classificacao{
+    width: 30%;
+    height: 0.5;
+}
+
+.skeleton-footer {
+    width: 30%;
+}
+.skeleton-titulo-card{
+    height: 1em;
 }

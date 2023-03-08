@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+}
 * {
     margin: 0px;
     font-family: Poppins;
@@ -70,6 +76,11 @@ a {
     color: #FFFFFF;
 
     background-color: black;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
 }
 
 /* NAVBAR */
@@ -78,6 +89,7 @@ a {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 
 }
 
@@ -138,6 +150,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .body {
     margin: 0rem 5rem;
+    height: 100%;
 }
 
 .titulo {
@@ -163,6 +176,7 @@ input[type="search"]::-webkit-search-results-decoration {
     border-radius: 5px;
 }
 
+
 .poster img {
     max-height: 250px;
     object-fit: cover;
@@ -173,9 +187,10 @@ input[type="search"]::-webkit-search-results-decoration {
     display: flex;
     flex-direction: column;
     align-self: center;
-    /* padding: 1em; */
+    padding: 1em;
     gap: 2em;
-    align-content: center
+    align-content: center;
+    width: 100%;
 }
 
 
@@ -190,6 +205,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .titulo-card {
     font-size: 1.25em;
     font-weight: 700;
+    
 }
 
 .data-lancamento {
@@ -220,6 +236,10 @@ input[type="search"]::-webkit-search-results-decoration {
 
 @media screen and (min-width:320px) and (max-width:425px) {
 
+    #header{
+        padding: 0px;
+    }
+
 
     #navbar {
         display: flex;
@@ -247,6 +267,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
     .titulo{
         margin: 1em 0em;
+        
     }
 
     .resultados {
@@ -319,4 +340,59 @@ input[type="search"]::-webkit-search-results-decoration {
 
 }
 
+.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
 
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(203, 11%, 85%);
+    }
+
+    100% {
+        background-color: hsl(200, 20%, 95%);
+    }
+}
+
+.skeleton-destaque {
+    background-color:#dadada;
+}
+
+
+
+.skeleton-text {
+    height: 0.7rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+}
+.skeleton-titulo-destaque{
+    height: 1.3rem;
+    max-width: 30%;
+}
+
+.skeleton-text__body {
+    width: 100%;
+}
+
+.skeleton-text-classificacao-destaque{
+    width: 10%;
+    height: 0.5;
+}
+
+.skeleton-text-classificacao{
+    width: 30%;
+    height: 0.5;
+}
+
+.skeleton-footer {
+    width: 30%;
+}
+.skeleton-titulo-card{
+    height: 1em;
+    width: 50%;
+}
+
+.skeleton-img-card{
+    min-width: 160px;
+    min-height: 250px;
+}
