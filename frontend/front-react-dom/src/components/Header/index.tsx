@@ -66,7 +66,8 @@ function Header() {
                             </div>
                         </>
                         : <>
-                            <a href="/frontend/detalhes.html?id=${destaque.id}&type=movie" className="titulo-destaque">{state.title}</a>
+                            <a href={`/detalhes/${state.id}/movie`}
+                            className="titulo-destaque">{state.title}</a>
                             <p className="descricao "> {state.overview}</p>
                             <div className="avaliacao-card">
                                 <IconContext.Provider value={{ style: { color: 'ffd900', fontSize: '20px' } }}>
@@ -76,8 +77,8 @@ function Header() {
                             </div>
                         </>
                 }
-            </div>
         </div>
+        </div >
     );
 }
 

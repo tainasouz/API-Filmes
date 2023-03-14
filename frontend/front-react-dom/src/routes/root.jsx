@@ -1,10 +1,11 @@
 import Header from "../components/Header";
+import Body from '../components/Body'
 
 function Root() {
   return (
     <>
       <Header />
-      <div className="Body"></div>
+      <Body/>
     </>
 
   );

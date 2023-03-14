@@ -27,6 +27,8 @@ function carregaIsoFilme(results) {
 
 }
 
+
+
 async function carregaGenero(type, id) {
 
 
@@ -215,7 +217,7 @@ router.get('/classificacaoFilme/:id', async function (req, res, next,) {
 
         if (dadosFilme.release_dates.length > 0) {
 
-            return res.status(200).send(dadosFilme);
+            return res.status(200).send(dadosFilme.release_dates[0]);
         }
 
         return res.status(200).send([])
@@ -240,35 +242,43 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
     const type = req.params.type
     const id = req.params.id
 
-    const URL = `${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`
+    const URLDetalhes = `${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`
+    const URLClassificacao = `http://localhost:3000/classificacaoFilme/${id}`
 
     if (type != "movie" && type != "tv") {
         const erro = [{
             "code": 1,
-            "mensagem": "oii"
+            "mensagem": "O tipo inserido não é válido"
         }]
 
         return res.status(400).send(erro)
     }
 
-    const response = await fetch(URL)
-    const responseJson = await response.json()
+    const responseDetalhes = await fetch(URLDetalhes)
+    const detalhes = await responseDetalhes.json()
 
-    if (response.ok) {
+    if (responseDetalhes.ok) {
+
+        const responseClassificacao = await fetch(`http://localhost:3000/classificacaoFilme/${id}`) 
+        const responseJsonClassificacao = await responseDetalhes.json()
+
+        if (responseClassificacao.ok) {
+            // detalhes.classifcacao = 
+        }
 
 
-        return res.status(200).send(responseJson);
+        return res.status(200).send(detalhes);
     }
 
-    if (responseJson.status_code == 34) {
+    if (detalhes.status_code == 34) {
 
 
 
-        return res.status(400).send(erro)
+        return res.status(400).send("Aqui")
 
     }
 
-    return res.status(response.status).send(responseJson.status_message)
+    return res.status(URLDetalhes.status).send(detalhes.status_message)
 
 });
 
