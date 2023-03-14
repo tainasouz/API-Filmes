@@ -27,7 +27,46 @@ function carregaIsoFilme(results) {
 
 }
 
+function validarTipo(type) {
+    
+    if (type !== "movie" && type !== "tv") {
 
+        const erro = [{
+            "code": 1,
+            "mensagem": "O tipo inserido não é válido"
+        }];
+
+        return res.status(400).send(erro)
+    }
+}
+
+async function carregaClassificacao(type, id) {
+
+    let urlClassificacao
+
+    if (type == 'movie') {
+
+        urlClassificacao = `http://localhost:3000/classificacaoFilme/${id}`
+
+    }
+    else{
+
+        urlClassificacao = `http://localhost:3000/classificacaoSerie/${id}`
+    }
+
+    const responseClassificacao = await fetch(urlClassificacao)
+    const classificacao = await responseClassificacao.json()
+
+    if (!responseClassificacao.ok) {
+        throw({
+            "code": 5,
+            "mensagem": "Algo deu errado"
+        })
+    }
+
+    return classificacao
+
+}
 
 async function carregaGenero(type, id) {
 
@@ -78,11 +117,11 @@ router.get('/carregaSeries', async function (req, res, next) {
     const series = responseJson.results.filter(serie => serie.vote_average > 3)
 
 
-        const seriesGeneros =  await Promise.all(series.map(async serie => {
-            const generos = await carregaGenero('tv', serie.id)
-            serie.genres = generos
-            return serie
-        }))
+    const seriesGeneros = await Promise.all(series.map(async serie => {
+        const generos = await carregaGenero('tv', serie.id)
+        serie.genres = generos
+        return serie
+    }))
 
 
     return res.status(200).send(seriesGeneros.slice(0, 12));
@@ -101,7 +140,7 @@ router.get('/carregaFilmes', async function (req, res, next) {
 
         const filmes = responseJson.results.filter(filme => filme.vote_average > 5)
 
-        const filmesGeneros =  await Promise.all(filmes.map(async filme => {
+        const filmesGeneros = await Promise.all(filmes.map(async filme => {
             const generos = await carregaGenero('movie', filme.id)
             filme.genres = generos
             return filme
@@ -245,21 +284,14 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
     const URLDetalhes = `${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`
     const URLClassificacao = `http://localhost:3000/classificacaoFilme/${id}`
 
-    if (type != "movie" && type != "tv") {
-        const erro = [{
-            "code": 1,
-            "mensagem": "O tipo inserido não é válido"
-        }]
-
-        return res.status(400).send(erro)
-    }
+    validarTipo(type)
 
     const responseDetalhes = await fetch(URLDetalhes)
     const detalhes = await responseDetalhes.json()
 
     if (responseDetalhes.ok) {
 
-        const responseClassificacao = await fetch(`http://localhost:3000/classificacaoFilme/${id}`) 
+        const responseClassificacao = await fetch(`http://localhost:3000/classificacaoFilme/${id}`)
         const responseJsonClassificacao = await responseDetalhes.json()
 
         if (responseClassificacao.ok) {
@@ -289,15 +321,7 @@ router.get('/dadosAtores/:type/:id', async function (req, res, next,) {
 
     const URL = `${env.URL_BASE}${type}/${id}/credits?${env.API_KEY}&language=pt-BR`
 
-    if (type != "movie" && type != "tv") {
-        const erro = {
-            "code": 1,
-            "titulo": "Requisição Ruim",
-            "mensagem": "O tipo inserido não é válido"
-        }
-
-        return res.status(400).send(erro)
-    }
+    validarTipo(type)
 
     const response = await fetch(URL)
 
