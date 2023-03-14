@@ -27,6 +27,40 @@ function carregaIsoFilme(results) {
 
 }
 
+async function carregaGenero(type, id) {
+
+
+    const URL = `${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`
+
+    const response = await fetch(URL);
+    const responseJson = await response.json();
+
+    let erro
+
+    if (response.ok) {
+
+
+
+        const generos = responseJson.genres.map(genero => genero.name)
+        return generos.join(", ")
+    }
+
+    if (responseJson.status_code == 34) {
+        erro = [{
+            "code": 1,
+            "mensagem": "O recurso solicitado não foi encontrado."
+        }]
+        return erro
+    }
+
+    erro = [{
+        "code": 2,
+        "mensagen": "Algo deu errado"
+    }]
+
+    return erro
+}
+
 router.get('/carregaSeries', async function (req, res, next) {
 
     const url = `${env.URL_BASE}tv/popular?${env.API_KEY}&language=pt-BR`
@@ -34,13 +68,23 @@ router.get('/carregaSeries', async function (req, res, next) {
     const response = await fetch(url);
     const responseJson = await response.json();
 
-    if (response.ok) {
+    if (!response.ok) {
 
-        const series = responseJson.results.filter(serie => serie.vote_average > 3)
-        return res.status(200).send(series);
+        return res.status(response.status).send(responseJson.status_message)
     }
 
-    return res.status(response.status).send(responseJson.status_message)
+    const series = responseJson.results.filter(serie => serie.vote_average > 3)
+
+
+        const seriesGeneros =  await Promise.all(series.map(async serie => {
+            const generos = await carregaGenero('tv', serie.id)
+            serie.genres = generos
+            return serie
+        }))
+
+
+    return res.status(200).send(seriesGeneros.slice(0, 12));
+
 
 });
 
@@ -54,7 +98,16 @@ router.get('/carregaFilmes', async function (req, res, next) {
     if (response.ok) {
 
         const filmes = responseJson.results.filter(filme => filme.vote_average > 5)
-        res.status(200).send(filmes);
+
+        const filmesGeneros =  await Promise.all(filmes.map(async filme => {
+            const generos = await carregaGenero('movie', filme.id)
+            filme.genres = generos
+            return filme
+        }))
+
+
+
+        res.status(200).send(filmesGeneros.slice(0, 12));
 
     }
 
@@ -124,14 +177,14 @@ router.get('/classificacaoSerie/:id', async function (req, res, next,) {
 
     if (response.ok) {
 
-        
+
 
         if (responseJson.results.length == 0) {
             return res.status(200).send([])
         }
         const classificacaoSerie = responseJson.results.filter(e => e.iso_3166_1 == "BR")
 
-        if (classificacaoSerie.length == 0 ) {
+        if (classificacaoSerie.length == 0) {
             return res.status(200).send([])
         }
 
@@ -209,7 +262,7 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
 
     if (responseJson.status_code == 34) {
 
-        
+
 
         return res.status(400).send(erro)
 
