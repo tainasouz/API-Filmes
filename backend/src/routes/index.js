@@ -27,16 +27,18 @@ function carregaIsoFilme(results) {
 
 }
 
+
 function validarTipo(type) {
-    
+
     if (type !== "movie" && type !== "tv") {
 
-        const erro = [{
+        const erro = {
             "code": 1,
             "mensagem": "O tipo inserido não é válido"
-        }];
+        };
 
-        return res.status(400).send(erro)
+        return { status: 404, erro }
+
     }
 }
 
@@ -49,7 +51,7 @@ async function carregaClassificacao(type, id) {
         urlClassificacao = `http://localhost:3000/classificacaoFilme/${id}`
 
     }
-    else{
+    else {
 
         urlClassificacao = `http://localhost:3000/classificacaoSerie/${id}`
     }
@@ -58,10 +60,7 @@ async function carregaClassificacao(type, id) {
     const classificacao = await responseClassificacao.json()
 
     if (!responseClassificacao.ok) {
-        throw({
-            "code": 5,
-            "mensagem": "Algo deu errado"
-        })
+        throw (classificacao.status_message)
     }
 
     return classificacao
@@ -100,6 +99,25 @@ async function carregaGenero(type, id) {
     }]
 
     return erro
+}
+
+function defineMesagemErro(statusCode) {
+    let mensagemErro
+
+
+    if (statusCode.status_code == 34) {
+        mensagemErro = {
+            "code": 2,
+            "mensagem": "O recurso solicitado não foi encontrado."
+        }
+        return { status: 400, mensagemErro }
+    }
+
+    mensagemErro = {
+        "code": 5,
+        "mensagem": "Algo deu errado"
+    }
+    return { status: 404, mensagemErro }
 }
 
 router.get('/carregaSeries', async function (req, res, next) {
@@ -172,146 +190,122 @@ router.get('/carregaDestaque', async function (req, res, next,) {
 });
 // Quais seriam os erros dessas requisição?
 
-router.get('/carregaGenero/:type/:id', async function (req, res, next,) {
-
-    const type = req.params.type
-    const id = req.params.id
-
-    if (type != "movie" && type != "tv") {
-        const erro = [{
-            "code": 1,
-            "mensagem": "oii"
-        }]
-
-        return res.status(400).send(erro)
-    }
-
-    const URL = `${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`
-
-    const response = await fetch(URL);
-    const responseJson = await response.json();
-
-    if (response.ok) {
-
-        const generos = responseJson.genres.map(genero => genero.name)
-        return res.status(200).send(generos);
-
-    }
-
-    if (responseJson.status_code == 34) {
-        return res.status(400).send("O recurso solicitado não foi encontrado.")
-    }
-
-    return res.status(response.status).send(responseJson.status_message)
-
-});
 
 router.get('/classificacaoSerie/:id', async function (req, res, next,) {
 
     const id = req.params.id
-
     const URL = `${env.URL_BASE}tv/${id}/content_ratings?${env.API_KEY}`
-
 
     const response = await fetch(URL)
     const responseJson = await response.json()
 
-    if (response.ok) {
+    if (!response.ok) {
 
+        const erro = defineMesagemErro(responseJson)
 
-
-        if (responseJson.results.length == 0) {
-            return res.status(200).send([])
-        }
-        const classificacaoSerie = responseJson.results.filter(e => e.iso_3166_1 == "BR")
-
-        if (classificacaoSerie.length == 0) {
-            return res.status(200).send([])
-        }
-
-
-        return res.status(200).send(classificacaoSerie[0].rating)
-    }
-
-    if (responseJson.status_code == 34) {
-
-        return res.status(400).send("O recurso solicitado não foi encontrado.")
+        return res.status(erro.status).send(erro.mensagemErro)
 
     }
-    return res.status(response.status).send(responseJson.status_message)
+    console.log(responseJson)
+
+    const classificacaoSerie = carregaIsoFilme(responseJson.results)
+
+    if (responseJson.results.length > 0) {
+        return res.status(200).send(classificacaoSerie)
+    }
+
+    return res.status(200).send([])
+
 });
 
 router.get('/classificacaoFilme/:id', async function (req, res, next,) {
 
     const id = req.params.id
-
     const URL = `${env.URL_BASE}/movie/${id}/release_dates?${env.API_KEY}`
 
     const response = await fetch(URL)
     const responseJson = await response.json()
 
-    if (response.ok) {
+    if (!response.ok) {
 
-        const dadosFilme = carregaIsoFilme(responseJson.results)
+        const erro = defineMesagemErro(responseJson)
 
-        if (dadosFilme.release_dates.length > 0) {
+        return res.status(erro.status).send(erro.mensagemErro)
 
-            return res.status(200).send(dadosFilme.release_dates[0]);
+    }
+
+    const dadosFilme = carregaIsoFilme(responseJson.results)
+
+    if (dadosFilme.release_dates.length > 0) {
+
+        const DataClassificacaoFilme = {
+            "iso_3166_1": dadosFilme.iso_3166_1,
+            "certification": dadosFilme.release_dates[0].certification,
+            "release_date": dadosFilme.release_dates[0].release_date
         }
-
-        return res.status(200).send([])
-        // Qual seria a mensagem adequada
-
+        return res.status(200).send(DataClassificacaoFilme);
     }
 
-
-    if (responseJson.status_code == 34) {
-
-        return res.status(400).send("O recurso solicitado não foi encontrado.")
-
-    }
-
-    return res.status(response.status).send(responseJson.status_message)
-
+    return res.status(200).send([])
+    // Qual seria a mensagem adequada
 
 });
 
+
 router.get('/detalhes/:type/:id', async function (req, res, next,) {
 
-    const type = req.params.type
-    const id = req.params.id
+    try {
+        const { type, id } = req.params
 
-    const URLDetalhes = `${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`
-    const URLClassificacao = `http://localhost:3000/classificacaoFilme/${id}`
+        validarTipo(type)
+        const URLDetalhes = `${env.URL_BASE}${type}/${id}?${env.API_KEY}&language=pt-BR`
+        const URLAtores = `http://localhost:3000/dadosAtores/${type}/${id}`
+        let URLClassificacao
 
-    validarTipo(type)
-
-    const responseDetalhes = await fetch(URLDetalhes)
-    const detalhes = await responseDetalhes.json()
-
-    if (responseDetalhes.ok) {
-
-        const responseClassificacao = await fetch(`http://localhost:3000/classificacaoFilme/${id}`)
-        const responseJsonClassificacao = await responseDetalhes.json()
-
-        if (responseClassificacao.ok) {
-            // detalhes.classifcacao = 
+        if (type == "movie") {
+            URLClassificacao = `http://localhost:3000/classificacaoFilme/${id}`
+        }
+        else {
+            URLClassificacao = `http://localhost:3000/classificacaoSerie/${id}`
         }
 
 
+
+        const [responseDetalhes, responseClassificacao, responseAtores] = await Promise.all([
+            fetch(URLDetalhes),
+            fetch(URLClassificacao),
+            fetch(URLAtores)
+        ])
+
+        const detalhes = await responseDetalhes.json()
+        const classificacao = await responseClassificacao.json()
+        const atores = await responseAtores.json()
+
+
+        if (!responseDetalhes.ok) {
+
+            defineMesagemErro(detalhes)
+        }
+        if (!responseClassificacao.ok) {
+
+            defineMesagemErro(classificacao)
+        }
+        if (!responseAtores.ok) {
+
+            defineMesagemErro(atores)
+        }
+
+        detalhes.genres = detalhes.genres.map(genero => genero.name)
+
+        detalhes.certification_date = classificacao
+        detalhes.cast = atores
+
         return res.status(200).send(detalhes);
     }
-
-    if (detalhes.status_code == 34) {
-
-
-
-        return res.status(400).send("Aqui")
-
+    catch (error) {
+        console.error(error)
+        return res.status(500).send('Erro ao obter detalhes do filme')
     }
-
-    return res.status(URLDetalhes.status).send(detalhes.status_message)
-
 });
 
 router.get('/dadosAtores/:type/:id', async function (req, res, next,) {
