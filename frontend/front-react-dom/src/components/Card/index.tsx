@@ -9,21 +9,22 @@ export type CardType = {
     title: string;
     vote_average: number;
     genres: string
+    type: string
 
 }
 
-function Card({ id, poster_path, title, vote_average, genres }: CardType) {
+function Card({ id, poster_path, title, vote_average, genres, type }: CardType) {
 
     return (
 
         <div className="card">
             <div className="img-card">
-                <a href={`/frontend/detalhes.html?id=${id}&type=movie`} className="link-img">
+                <a href={`detalhes/${id}/${type}`} className="link-img">
                     <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} />
                 </a>
             </div>
             <div className="info-card">
-                <a href="/frontend/detalhes.html?id=${filme.id}&type=movie" className="titulo-card">{title}</a>
+                <a href="/detalhes" className="titulo-card">{title}</a>
                 <div className="genero-card" id={`card-${id}`}>{genres}</div>
                 <div className="avaliacao-card">
                     <IconContext.Provider value={{ style: { color: '#ffd900', fontSize: '16px' } }}>
