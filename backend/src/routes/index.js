@@ -297,10 +297,30 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
 
         detalhes.genres = detalhes.genres.map(genero => genero.name)
 
-        detalhes.certification_date = classificacao
+        const certification = classificacao && classificacao.length > 0 ? {
+
+            iso_3166_1: classificacao[0].iso_3166_1,
+            rating: classificacao[0].rating
+
+        } : classificacao;
+
         detalhes.cast = atores
 
-        return res.status(200).send(detalhes);
+        const dados = {
+            "backdrop_path": detalhes.backdrop_path,
+            "cast": detalhes.cast,
+            "certification": certification,
+            "genres": detalhes.genres,
+            "id": detalhes.id,
+            "original_title": detalhes.original_title,
+            "overview": detalhes.overview,
+            "poster_path": detalhes.poster_path,
+            "release_date": type === 'movie' ? detalhes.release_date : detalhes.first_air_date,
+            "title": detalhes.title,
+            "vote_average": detalhes.vote_average,
+        }
+
+        return res.status(200).send(dados);
     }
     catch (error) {
         console.error(error)
@@ -318,9 +338,9 @@ router.get('/dadosAtores/:type/:id', async function (req, res, next,) {
     validarTipo(type)
 
     const response = await fetch(URL)
-
+    const responseJson = await response.json()
     if (response.ok) {
-        const responseJson = await response.json()
+
         const atores = responseJson.cast
         return res.status(200).send(atores);
     }
