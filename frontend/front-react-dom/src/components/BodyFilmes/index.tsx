@@ -32,7 +32,7 @@ function BodyFilmes() {
 
                             : state.map((filme) => {
                                 return (
-                                    <Card id={filme.id} poster_path={filme.poster_path} title={filme.title} vote_average={filme.vote_average} genres ={filme.genres}/>
+                                    <Card id={filme.id} poster_path={filme.poster_path} title={filme.title} vote_average={filme.vote_average} genres ={filme.genres} type={"movie"}/>
                                 )
                             })
 
