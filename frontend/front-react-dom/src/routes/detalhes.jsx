@@ -5,9 +5,10 @@ import HeaderDetalhes from '../components/HeaderDetalhes'
 
 function Detalhes() {
 
-    <HeaderDetalhes/>
+    return (
+        <HeaderDetalhes />
+    );
 
 
-    
 }
 export default Detalhes
