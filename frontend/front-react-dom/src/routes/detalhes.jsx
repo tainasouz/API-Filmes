@@ -5,8 +5,10 @@ import HeaderDetalhes from '../components/HeaderDetalhes'
 
 function Detalhes() {
 
+    const {id, type} = useParams()
+
     return (
-        <HeaderDetalhes />
+        <HeaderDetalhes id={id} type={type} />
     );
 
 
