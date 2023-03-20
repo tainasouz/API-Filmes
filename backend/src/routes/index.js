@@ -206,15 +206,17 @@ router.get('/classificacaoSerie/:id', async function (req, res, next,) {
         return res.status(erro.status).send(erro.mensagemErro)
 
     }
-    console.log(responseJson)
 
     const classificacaoSerie = carregaIsoFilme(responseJson.results)
+
+    console.log(classificacaoSerie)
 
     if (responseJson.results.length > 0) {
         return res.status(200).send(classificacaoSerie)
     }
 
-    return res.status(200).send([])
+    return res.status(200).send({iso_3166_1: "",
+    rating: ""})
 
 });
 
@@ -241,7 +243,6 @@ router.get('/classificacaoFilme/:id', async function (req, res, next,) {
         const DataClassificacaoFilme = {
             "iso_3166_1": dadosFilme.iso_3166_1,
             "certification": dadosFilme.release_dates[0].certification,
-            "release_date": dadosFilme.release_dates[0].release_date
         }
         return res.status(200).send(DataClassificacaoFilme);
     }
@@ -296,13 +297,11 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
         }
 
         detalhes.genres = detalhes.genres.map(genero => genero.name)
+        
+        console.log(classificacao.length)
 
-        const certification = classificacao && classificacao.length > 0 ? {
+        const certification = classificacao
 
-            iso_3166_1: classificacao[0].iso_3166_1,
-            rating: classificacao[0].rating
-
-        } : classificacao;
 
         detalhes.cast = atores
 
