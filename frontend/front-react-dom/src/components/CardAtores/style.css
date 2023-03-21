@@ -1,0 +1,53 @@
+.card img {
+    max-width: 175px;
+    border-radius: 12px;
+}
+
+.nome-ator {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.nome-personagem {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #8C8C8C;
+}
+
+@media screen and (min-width: 320px) and (max-width: 650px) {
+
+    .card img {
+        max-width: 150px;
+        border-radius: 12px;
+    }
+
+    .titulo-elenco{
+        font-size: 20px;
+    }
+    .cards-elenco{
+        margin: 1em 0em;
+    }
+    .nome-ator{
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 650px) and (max-width:1024px){
+
+  .cartaz img{
+    width: 200px;
+  }
+
+  .titulo{
+    font-size: 28px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+
+    .cartaz img{
+        width: 275px;
+    }
+}
+

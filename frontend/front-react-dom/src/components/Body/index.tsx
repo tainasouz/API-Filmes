@@ -2,7 +2,7 @@ import React from 'react';
 import BodyFilmes from '../BodyFilmes/index';
 import BodySeries from "../BodySeries/index";
 
-function Body() {
+function BodyDetalhes() {
   return (
     <div id='body'>
         <BodyFilmes/>
@@ -12,4 +12,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default BodyDetalhes;

@@ -18,7 +18,6 @@ type PropsDetalhes = {
 
 
 function Detalhes({ certification, genres, overview, poster_path, release_date, title, vote_average }: PropsDetalhes) {
-    console.log(certification)
     return (
 
 
