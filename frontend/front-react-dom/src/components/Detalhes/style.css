@@ -1,13 +1,9 @@
-
 .detalhes {
 
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* gap: 5em; */
 
-
-    /* margin: 4em 0em; */
 }
 
 .cartaz {
@@ -22,6 +18,13 @@
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    width: 100%;
 }
 
 .titulo {
@@ -56,9 +59,16 @@
 .sinopse {
     font-weight: 400;
     font-size: 16px;
-  
+
 }
 
+.classificacao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 0.75rem;
+}
 
 @media screen and (min-width: 320px) and (max-width: 650px) {
 
@@ -68,55 +78,57 @@
         flex-direction: column;
         align-items: center;
         gap: 1em;
-    
+
     }
 
-    .cartaz img{
+    .cartaz img {
         max-width: 200px;
         margin: 1em;
     }
 
-    .titulo{
+    .titulo {
         font-size: 24px;
     }
-    .sinopse{
+
+
+    .data-genero {
+        font-size: 14px;
+        margin: 5px 0px;
+
+    }
+
+    .sinopse {
         font-size: 16px;
         font-weight: 400;
     }
-
-    .data-genero{
-      font-size: 14px;
-      margin: 5px 0px;
-     
-    }
-
 }
 
-@media screen and (min-width: 650px) and (max-width:1024px){
+@media screen and (min-width: 650px) and (max-width:1024px) {
 
-  .detalhes{
-    padding: 2em 0em;
-    gap: 2em;
-  }
+    .detalhes {
+        padding: 2em 0em;
+        gap: 2em;
+    }
 
-  .cartaz img{
-    width: 200px;
-  }
+    .cartaz img {
+        width: 200px;
+    }
 
-  .titulo{
-    font-size: 28px;
-  }
+    .titulo {
+        font-size: 28px;
+    }
 
 }
 
 @media screen and (min-width: 1024px) {
 
-    .detalhes{
+    .detalhes {
         padding: 3em 0em;
         gap: 3em;
     }
 
-    .cartaz img{
+    .cartaz img {
         width: 275px;
     }
+
 }
