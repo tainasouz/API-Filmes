@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IconContext } from "react-icons";
 import { IoStar } from 'react-icons/io5'
 import './style.css';
+import User from '../../assets/img/user.png'
 
 export type CardAtoresType = {
     character: string,
@@ -16,9 +17,14 @@ function CardAtores({ character, id, name, profile_path }: CardAtoresType) {
 
     return (
 
-        <div className="card">
+        <div className="cardAtores">
             <div className="cartaz-autor">
-            <img src={`https://image.tmdb.org/t/p/w500/${profile_path}`} alt={name} />
+                {
+                    profile_path !== null
+                        ? <img src={`https://image.tmdb.org/t/p/w500/${profile_path}`} alt={name} />
+                        :
+                        <img src={User} alt={name} />
+                }
             </div>
             <div className="nome-ator">
                 {name}

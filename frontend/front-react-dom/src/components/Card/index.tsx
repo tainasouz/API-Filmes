@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IconContext } from "react-icons";
 import { IoStar } from 'react-icons/io5'
+import Poster from '../../assets/img/poster.png'
 import './style.css';
 
 export type CardType = {
@@ -10,7 +11,7 @@ export type CardType = {
     vote_average: number;
     genres: string
     type: string
-
+ 
 }
 
 function Card({ id, poster_path, title, vote_average, genres, type }: CardType) {
@@ -20,7 +21,13 @@ function Card({ id, poster_path, title, vote_average, genres, type }: CardType) 
         <div className="card">
             <div className="img-card">
                 <a href={`detalhes/${id}/${type}`} className="link-img">
-                    <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} />
+                    {
+                        poster_path !== null
+                        ? <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} />
+                        :
+                        <img src={Poster} alt={title} />
+                    }
+                    
                 </a>
             </div>
             <div className="info-card">

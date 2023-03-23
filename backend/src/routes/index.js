@@ -120,6 +120,28 @@ function defineMesagemErro(statusCode) {
     return { status: 404, mensagemErro }
 }
 
+function carregaTodosOsDados(
+    url = urlSearch,
+    page = 1,
+    Response = []
+) {
+    return fetch(`${url}/${page}`)
+        .then(response => response.json())
+        .then(responseJson => {
+
+
+            const response = [...Response, ...responseJson.results.filter(e => e.media_type != "person")];
+
+            if (responseJson.length !== 0 && page < 10) {
+              page++;
+
+              return carregaTodosOsDados(url, page, response);
+            }
+
+            return response;
+        })
+}
+
 router.get('/carregaSeries', async function (req, res, next) {
 
     const url = `${env.URL_BASE}tv/popular?${env.API_KEY}&language=pt-BR`
@@ -207,16 +229,20 @@ router.get('/classificacaoSerie/:id', async function (req, res, next,) {
 
     }
 
+
     const classificacaoSerie = carregaIsoFilme(responseJson.results)
 
-    console.log(classificacaoSerie)
 
-    if (responseJson.results.length > 0) {
-        return res.status(200).send(classificacaoSerie)
+
+
+    const resultClassificacao = {
+        "iso_3166_1": classificacaoSerie.iso_3166_1,
+        "certification": classificacaoSerie.rating || ""
     }
 
-    return res.status(200).send({iso_3166_1: "",
-    rating: ""})
+    return res.status(200).send(resultClassificacao);
+
+
 
 });
 
@@ -297,8 +323,7 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
         }
 
         detalhes.genres = detalhes.genres.map(genero => genero.name)
-        
-        console.log(classificacao.length)
+
 
         const certification = classificacao
 
@@ -311,11 +336,11 @@ router.get('/detalhes/:type/:id', async function (req, res, next,) {
             "certification": certification,
             "genres": detalhes.genres,
             "id": detalhes.id,
-            "original_title": detalhes.original_title,
+            "original_title": type === 'movie' ? detalhes.original_title : detalhes.original_name,
             "overview": detalhes.overview,
             "poster_path": detalhes.poster_path,
             "release_date": type === 'movie' ? detalhes.release_date : detalhes.first_air_date,
-            "title": detalhes.title,
+            "title": type === 'movie' ? detalhes.title : detalhes.name,
             "vote_average": detalhes.vote_average,
         }
 
@@ -369,15 +394,14 @@ router.get('/pesquisa/:query/:page', async function (req, res, next) {
     const URL = `${env.URL_BASE}search/multi?${env.API_KEY}&language=pt-BR&query=${query}&include_adult=false&page=${page}`
 
 
-    const response = await fetch(URL)
-    const responseJson = await response.json()
+    const response = await carregaTodosOsDados(URL)
+    // const responseJson = await response.json()
 
 
-    if (response.ok) {
-        return res.status(200).send(responseJson.results)
-    }
+    return res.status(200).send(response)
 
-    return res.status(404).send()
+
+    // return res.status(404).send()
 })
 
 export default router

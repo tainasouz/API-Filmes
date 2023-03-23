@@ -17,10 +17,8 @@ type PropsDetalhes = {
 }
 
 
-function Detalhes({ certification, genres, overview, poster_path, release_date, title, vote_average }: PropsDetalhes) {
+function NavDetalhes({ certification, genres, overview, poster_path, release_date, title, vote_average }: PropsDetalhes) {
     return (
-
-
 
         <div className="detalhes">
             <div className="cartaz">
@@ -49,7 +47,7 @@ function Detalhes({ certification, genres, overview, poster_path, release_date, 
                         }
                         <div className="data-lancamento">{new Date(release_date).toLocaleDateString()}</div>
                         <div className="genero">{genres.join(', ')}</div>
-                        
+
 
                     </div>
                 </div>
@@ -66,4 +64,4 @@ function Detalhes({ certification, genres, overview, poster_path, release_date, 
     );
 }
 
-export default Detalhes;
+export default NavDetalhes;

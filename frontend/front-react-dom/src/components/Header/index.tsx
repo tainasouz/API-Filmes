@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
-// import Logo from '../../assets/img/WatchMR'
-import { FilmesPopulares } from '../../type';
+import { FilmesPopulares, NavbarType } from '../../type';
 import { IconContext } from "react-icons";
 import { FaStar } from 'react-icons/fa'
 import { IoSearch, IoStar } from 'react-icons/io5'
+import Navbar from '../NavBar';
 
 
-function Header() {
+function Header({ setQuery }: NavbarType) {
     const [state, setState] = useState<FilmesPopulares | null>(null)
     useEffect(() => {
         fetch("http://localhost:3000/carregaDestaque")
@@ -27,25 +27,7 @@ function Header() {
                 backgroundSize: state?.backdrop_path ? "cover" : ''
             }}
         >
-            <div id="navbar">
-                <div className="div-logo-menu">
-                    <a href="./index.html" className="logo">
-                        {/* <img src={} alt="" srcSet="" /> */}
-                    </a>
-
-                </div>
-
-                <div className="div-pesquisa">
-                    <form action="/frontend/pesquisa.html" method="get" className="pesquisa">
-                        <input type="text" placeholder="Pesquisar" name="search" />
-                        <button title="butao-pesquisa">
-                            <IconContext.Provider value={{ style: { color: 'white', fontSize: '20px' } }}>
-                                <IoSearch />
-                            </IconContext.Provider>
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <Navbar setQuery={setQuery}/>
 
             <div id="filme-destaque">
                 {

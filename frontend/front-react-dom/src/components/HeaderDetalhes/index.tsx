@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Detalhes } from '../../type';
+import { Detalhes, NavbarType } from '../../type';
 import './style.css';
 import Navbar from '../NavBar';
 import NavDetalhes from '../Detalhes';
@@ -7,10 +7,11 @@ import NavDetalhes from '../Detalhes';
 export type Params = {
     id: number,
     type: "movie" | "tv",
+    setQuery: NavbarType['setQuery']
 }
 
 
-function HeaderDetalhes({ id, type }: Params) {
+function HeaderDetalhes({ id, type, setQuery }: Params) {
 
     const [state, setState] = useState<Detalhes | null>(null)
     useEffect(() => {
@@ -20,14 +21,14 @@ function HeaderDetalhes({ id, type }: Params) {
                 setState(destalhes);
             })
     }, [])
-
+ 
     return (
         <div className="header"
             style={{
                 background: `linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)) ${state?.backdrop_path ? `, url(https://image.tmdb.org/t/p/original${state.backdrop_path})` : ''}`,
                 backgroundSize: state?.backdrop_path ? "cover" : ''
             }}>
-            <Navbar />
+            <Navbar setQuery={setQuery}/>
             {
                 state === null
                     ? <></>
