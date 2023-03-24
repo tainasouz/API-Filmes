@@ -83,7 +83,3 @@ export interface ResultadoPesquisa {
     vote_average:number,
     vote_count: number
 }
-
-export interface NavbarType {
-    setQuery: React.Dispatch<React.SetStateAction<string>>;
-}

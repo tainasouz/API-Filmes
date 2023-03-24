@@ -7,8 +7,6 @@ function Detalhes() {
 
     const { id, type } = useParams()
 
-    const[query, setQuery] = useState('')
-
     return (
         <>
             <HeaderDetalhes id={id} type={type} />

@@ -5,19 +5,14 @@ import BodyPesquisa from '../components/BodyPesquisa';
 
 function Pesquisa() {
 
-    const[query, setQuery] = useState('')
-
-    // const query = new URLSearchParams(location.search).get('search');
+    const query = new URLSearchParams(location.search).get('search');
+    console.log(query);
 
     return (
         <>
-            <Navbar setQuery={setQuery} />
+            <Navbar backgrounColor="#ff0000"/>
             <BodyPesquisa query={query} />
-
         </>
-
     );
-
-
 }
 export default Pesquisa

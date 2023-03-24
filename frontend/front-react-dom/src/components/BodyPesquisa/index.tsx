@@ -12,20 +12,18 @@ function BodyPesquisa({ query }: PesquisaType) {
 
     const [state, setState] = useState<Array<ResultadoPesquisa>>([])
     useEffect(() => {
-        // fetch(`http://localhost:3000/pesquisa/${query}/1`)
-        //     .then(res => res.json())
-        //     .then((resultado: ResultadoPesquisa[]) => {
-        //         setState(resultado);
-
-        //     })
-        console.log(query)
+        fetch(`http://localhost:3000/pesquisa/${query}/1`)
+            .then(res => res.json())
+            .then((resultado: ResultadoPesquisa[]) => {
+                setState(resultado);
+            })
     }, [query])
 
     return (
         <>
             <div className="titulo ">Resultados para {query}</div>
             <div className="resultados">
-
+                {JSON.stringify(state)}
             </div>
         </>
     );

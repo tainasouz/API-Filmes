@@ -1,25 +1,16 @@
 import './style.css';
-import React, { FormEventHandler, useState } from 'react';
 // import Logo from '../../assets/img/WatchMR.png'
 import { IconContext } from "react-icons";
 import { IoSearch } from 'react-icons/io5'
-import { NavbarType } from '../../type';
 
+interface NavbarProps {
+    backgroundColor?: string;
+}
 
+function Navbar({backgroundColor = 'black'}: NavbarProps) {
 
-function Navbar({ setQuery }: NavbarType) {
-
-    const [input, setInput] = useState('')
-
-    const handleSubmit = (event:React.FormEvent<HTMLFormElement> ) => {
-        // event.preventDefault()
-        setQuery(input)
-    }
-
-    
     return (
-
-        <div id="navbar">
+        <div id="navbar" style={{ backgroundColor }}>
             <div className="div-logo-menu">
                 <a href={'/'} className="logo">
                     {/* <img src={Logo} alt="" srcSet="" /> */}
@@ -28,8 +19,8 @@ function Navbar({ setQuery }: NavbarType) {
             </div>
 
             <div className="div-pesquisa">
-                <form action="/pesquisa" method="get" className="pesquisa" onSubmit={(event) =>{handleSubmit(event)}}>
-                    <input type="text" placeholder="Pesquisar" name="search" value={input} onChange={(event) => { setInput(event.target.value)}} />
+                <form action="/pesquisa" method="get" className="pesquisa">
+                    <input type="text" placeholder="Pesquisar" name="search" />
                     <button title="botao-pesquisa">
                         <IconContext.Provider value={{ style: { color: 'white', fontSize: '20px' } }}>
                             <IoSearch />
@@ -42,7 +33,4 @@ function Navbar({ setQuery }: NavbarType) {
 }
 
 export default Navbar;
-function setState(arg0: string): [any, any] {
-    throw new Error('Function not implemented.');
-}
 

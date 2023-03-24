@@ -5,11 +5,10 @@ import React, { useState } from 'react';
 
 function Root() {
 
-  const[query, setQuery] = useState('')
 
   return (
     <>
-      <Header setQuery={setQuery}/>
+      <Header/>
       <Body/>
     </>
 
