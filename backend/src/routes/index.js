@@ -121,18 +121,21 @@ function defineMesagemErro(statusCode) {
 }
 
 function carregaTodosOsDados(
-    url = urlSearch,
+    url,
     page = 1,
     Response = []
 ) {
-    return fetch(`${url}/${page}`)
+    return fetch(`${url}${page}`)
         .then(response => response.json())
         .then(responseJson => {
 
 
             const response = [...Response, ...responseJson.results.filter(e => e.media_type != "person")];
 
-            if (responseJson.length !== 0 && page < 10) {
+
+           
+
+            if (responseJson.results.length !== 0 && page < 10) {
               page++;
 
               return carregaTodosOsDados(url, page, response);
@@ -391,11 +394,11 @@ router.get('/pesquisa/:query/:page', async function (req, res, next) {
     const query = req.params.query
     const page = req.params.page
 
-    const URL = `${env.URL_BASE}search/multi?${env.API_KEY}&language=pt-BR&query=${query}&include_adult=false&page=${page}`
+    const URL = `${env.URL_BASE}search/multi?${env.API_KEY}&language=pt-BR&query=${query}&include_adult=false&page=`
 
 
     const response = await carregaTodosOsDados(URL)
-    // const responseJson = await response.json()
+   
 
 
     return res.status(200).send(response)
