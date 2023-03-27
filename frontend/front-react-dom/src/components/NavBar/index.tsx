@@ -4,13 +4,13 @@ import { IconContext } from "react-icons";
 import { IoSearch } from 'react-icons/io5'
 
 interface NavbarProps {
-    backgroundColor?: string;
+    color?: string;
 }
 
-function Navbar({backgroundColor = 'black'}: NavbarProps) {
+function Navbar() {
 
     return (
-        <div id="navbar" style={{ backgroundColor }}>
+        <div id="navbar">
             <div className="div-logo-menu">
                 <a href={'/'} className="logo">
                     {/* <img src={Logo} alt="" srcSet="" /> */}
