@@ -51,7 +51,7 @@ function Header() {
                             <a href={`/detalhes/${state.id}/movie`}
                             className="titulo-destaque">{state.title}</a>
                             <p className="descricao "> {state.overview}</p>
-                            <div className="avaliacao-card">
+                            <div className="avaliacao-card avaliacao-card-header-principal">
                                 <IconContext.Provider value={{ style: { color: 'ffd900', fontSize: '20px' } }}>
                                     <IoStar />
                                 </IconContext.Provider>
