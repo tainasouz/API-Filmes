@@ -7,9 +7,9 @@ import './style.css';
 export type CardType = {
     id: number;
     poster_path?: string;
-    title: string;
+    title?: string;
     vote_average: number;
-    genres: string
+    genres?: string
     type: string
  
 }
@@ -37,7 +37,7 @@ function Card({ id, poster_path, title, vote_average, genres, type }: CardType) 
                     <IconContext.Provider value={{ style: { color: '#ffd900', fontSize: '16px' } }}>
                         <IoStar />
                     </IconContext.Provider>
-                    <div className="num-card">{vote_average}</div>
+                    <div className="num-card">{vote_average.toFixed(1)}</div>
                 </div>
 
             </div>
