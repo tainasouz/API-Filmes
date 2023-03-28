@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.css'
 import { Detalhes } from '../../type';
-import CardAtores from '../CardAtores';
+import CardAtores, { SkeletonCardAtores } from '../CardAtores';
 
 export type Params = {
   id: number,
@@ -20,14 +20,16 @@ function BodyDetalhes({ id, type }: Params) {
       })
   }, [])
 
+  console.log(state)
+
   return (
     <div className="body">
       <div className="elenco">
         <div className=" titulo-elenco">Elenco Principal</div>
         <div className="cards-elenco">
           {
-            state?.cast.length === 0
-              ? <></>
+            state === null
+              ? <SkeletonCardAtores qtd={5}/>
               // ?  Array.from({length: 10}).map(() => <SkeletonTeste />)
 
               : state?.cast.map((ator) => {

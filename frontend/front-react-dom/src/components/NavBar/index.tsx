@@ -1,5 +1,5 @@
 import './style.css';
-// import Logo from '../../assets/img/WatchMR.png'
+import Logo from '../../assets/img/WatchMR.png'
 import { IconContext } from "react-icons";
 import { IoSearch } from 'react-icons/io5'
 
@@ -13,7 +13,7 @@ function Navbar() {
         <div id="navbar">
             <div className="div-logo-menu">
                 <a href={'/'} className="logo">
-                    {/* <img src={Logo} alt="" srcSet="" /> */}
+                    <img src={Logo} alt="" srcSet="" />
                 </a>
 
             </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
 import { FilmesPopulares } from '../../type';
-import Card from '../Card';
+import Card, { SkeletonCard } from '../Card';
 
 
 function BodyFilmes() {
@@ -27,7 +27,7 @@ function BodyFilmes() {
                 <div className='cards-filme '>
                     {
                         state.length === 0
-                            ? <></>
+                            ? <SkeletonCard qtd={12}/>
                             // ?  Array.from({length: 10}).map(() => <SkeletonTeste />)
 
                             : state.map((filme) => {

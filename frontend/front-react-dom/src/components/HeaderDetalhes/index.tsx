@@ -20,7 +20,7 @@ function HeaderDetalhes({ id, type }: Params) {
                 setState(destalhes);
             })
     }, [])
- 
+
     return (
         <div className="header"
             style={{
@@ -30,7 +30,32 @@ function HeaderDetalhes({ id, type }: Params) {
             <Navbar />
             {
                 state === null
-                    ? <></>
+                    ?
+                    <div className="detalhes">
+                        <div className="cartaz">
+                            <img className="skeleton" id="logo-img" alt="" />
+                        </div>
+                        <div className="infos">
+                            <div className="titulo-min-infos">
+                                <div className="titulo">
+                                    <div className="skeleton skeleton-text skeleton-titulo-destaque"></div>
+                                </div>
+                            </div>
+                            <div className="sinopse-classNameificacao">
+                                <div className="sinopse">
+                                    <div className="skeleton skeleton-text skeleton-text__body"></div>
+                                    <div className="skeleton skeleton-text skeleton-text__body"></div>
+                                    <div className="skeleton skeleton-text skeleton-text__body"></div>
+                                    <div className="skeleton skeleton-text skeleton-text__body"></div>
+                                </div>
+                                <div className="classificacao">
+                                    <div className="skeleton skeleton-text skeleton-text-classificacao"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                     :
                     <NavDetalhes certification={state.certification} genres={state.genres} overview={state.overview} poster_path={state.poster_path} release_date={state.release_date} title={state.title} vote_average={state.vote_average} />
 

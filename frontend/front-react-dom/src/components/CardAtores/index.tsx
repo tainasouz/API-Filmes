@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { IconContext } from "react-icons";
-import { IoStar } from 'react-icons/io5'
+
 import './style.css';
 import User from '../../assets/img/user.png'
 
@@ -41,31 +39,25 @@ type SkeletonCard = {
     qtd: number;
 }
 
-export function SkeletonCard({ qtd }: SkeletonCard) {
+export function SkeletonCardAtores({ qtd }: SkeletonCard) {
+
     return (
         <>
-
             {
                 Array.from({ length: qtd }).map(() =>
-                    <div className="card">
-                        <div className="img-card">
+                    <div className="cardAtores">
+                        <div className="cartaz-autor">
                             <img className="skeleton" id="logo-img" alt="" />
                         </div>
-                        <div className="info-card">
-                            <h3 className="titulo-card">
-                                <div className="skeleton skeleton-text skeleton-titulo-card"></div>
-                            </h3>
-                            <h4 className="genero-card">
-                                <div className="skeleton skeleton-text skeleton-text__body"></div>
-                            </h4>
-                            <div className="avaliacao-card">
-                                <div className="skeleton skeleton-text skeleton-text-classificacao"></div>
-                            </div>
+                        <div className="nome-ator">
+                            <div className="skeleton skeleton-text skeleton-titulo-card"></div>
+                        </div>
+                        <div className="nome-personagem">
+                            <div className="skeleton skeleton-text skeleton-text__body"></div>
                         </div>
                     </div>
                 )
             }
-
         </>
     )
 }
